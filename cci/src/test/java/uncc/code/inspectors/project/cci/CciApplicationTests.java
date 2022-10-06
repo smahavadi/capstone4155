@@ -1,10 +1,10 @@
-package uncc.code.inspectors.project.ccc;
+package uncc.code.inspectors.project.cci;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CccApplicationTests {
+class CciApplicationTests {
 
 	@Test
 	void contextLoads() {
