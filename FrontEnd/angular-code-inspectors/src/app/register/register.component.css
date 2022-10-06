@@ -1,0 +1,16 @@
+form {
+    text-align: center;
+    width: 60%;
+    margin: 50px auto;
+    background-color: #FCF3CD;
+}
+
+input[type=submit] {
+    background-color: #007BBC;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 4px 2px;
+}
+
