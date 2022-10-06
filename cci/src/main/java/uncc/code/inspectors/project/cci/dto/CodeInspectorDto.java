@@ -1,4 +1,4 @@
-package uncc.code.inspectors.project.ccc.dto;
+package uncc.code.inspectors.project.cci.dto;
 
 import lombok.Data;
 import javax.persistence.*;
