@@ -1,10 +1,15 @@
 package uncc.code.inspectors.project.cci.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import java.util.List;
+
+// import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
 // import org.springframework.stereotype.Repository;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 
-public interface CodeInspectorRepository extends JpaRepository<CodeInspector, Long>, JpaSpecificationExecutor{
+public interface CodeInspectorRepository extends MongoRepository<CodeInspector, Long>{
     // crud database methods
+    List<CodeInspector> findAll();
 }

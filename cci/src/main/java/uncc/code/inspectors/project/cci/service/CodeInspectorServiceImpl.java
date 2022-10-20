@@ -17,7 +17,7 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
     // get code inspectors
     @Override
     public List<CodeInspector> getCodeInspectors() {
-        List<CodeInspector> inspectors = null;
+        List<CodeInspector> inspectors = codeInspectorRepository.findAll();
         return inspectors;
 
     }
