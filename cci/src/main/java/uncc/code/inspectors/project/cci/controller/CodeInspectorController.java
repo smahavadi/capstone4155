@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
-import uncc.code.inspectors.service.CodeInspectorService;
+import uncc.code.inspectors.project.cci.service.CodeInspectorService;
 
 @RestController
 @RequestMapping("/cci")
