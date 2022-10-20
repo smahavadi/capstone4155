@@ -1,4 +1,4 @@
-package uncc.code.inspectors.service;
+package uncc.code.inspectors.project.cci.service;
 
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.repository.CodeInspectorRepository;
