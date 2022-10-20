@@ -2,10 +2,14 @@ package uncc.code.inspectors.project.cci.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDate;
 
 @Data
 @Entity
+@Document("inspectors")
 /**
  * Entity for Code Inspector object: object that represents a Code Inspector
  * and holds information about one
