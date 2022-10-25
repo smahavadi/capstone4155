@@ -1,5 +1,4 @@
 form {
-    text-align: center;
     padding: 15px;
     width: 60%;
     margin: 40px auto;
@@ -10,14 +9,49 @@ form {
 input[type=submit] {
     background-color: #007BBC;
     color: white;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     border: none;
     cursor: pointer;
     padding: 8px 16px;
     margin: 4px 2px;
+    position: relative;
+    left: 175px;
 }
 
 .reg-sep {
     background-color: #6FBADE;
     overflow: hidden;
     margin: 10px 10px;
+}
+
+.container {
+    text-align: right;
+}
+
+.container label {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    position: relative;
+    right: 320px;
+    top: 20px;
+}
+
+.container input {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    width: 40%;
+    text-align: center;
+    display: block;
+    position: relative;
+    left: 215px;
+    border-radius: 10px;
+}
+
+.container select {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    width: 40%;
+    text-align: center;
+    display: block;
+    border-radius: 10px;
+    border: 2px solid black;
+    position: relative;
+    left: 215px;
 }
