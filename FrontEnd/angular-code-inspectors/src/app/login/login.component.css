@@ -1,0 +1,52 @@
+form {
+    background-color: #6FBADE;
+    overflow: hidden;
+    margin: 10px 10px;
+}
+
+.login-form p {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    bottom: 20px;
+}
+
+.login-form {
+    padding: 100px 10px;
+    width: 60%;
+    margin: 21px auto;
+    background-color: #FCF3CD;
+    position: relative;
+}
+
+.login-form label {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    position: relative;
+    left: 110px;
+    top: 20px;
+}
+
+.login-form .input {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    width: 40%;
+    text-align: center;
+    display: block;
+    position: relative;
+    left: 196px;
+    border-radius: 10px;
+}
+
+.login-form .submit {
+    background-color: #007BBC;
+    color: white;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    width: 30%;
+    margin: 4px 11px;
+    position: relative;
+    left: 82px;
+    top: 25px;
+}
