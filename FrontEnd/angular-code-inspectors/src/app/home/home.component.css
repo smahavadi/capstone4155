@@ -1,0 +1,21 @@
+.body {
+    text-align: center;
+}
+
+.body .panel {
+    display: inline-block;
+    background-color: #6FBADE;
+    height: 400px;
+    width: 570px;
+    margin: 10px 10px;
+}
+
+.body #left.panel {
+    position: relative;
+    right: 10px;
+}
+
+.body #right.panel {
+    position: relative;
+    left: 10px;
+}
