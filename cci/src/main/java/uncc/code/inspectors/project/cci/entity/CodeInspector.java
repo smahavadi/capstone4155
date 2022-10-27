@@ -18,7 +18,7 @@ public class CodeInspector {
 
     @Id
     private Long ceoId;
-    private Long certificationNum;
+    private String certificationNum;
     private int level;
     private String firstName;
     private String lastName;
