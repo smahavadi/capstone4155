@@ -6,16 +6,26 @@
     display: inline-block;
     background-color: #6FBADE;
     height: 400px;
-    width: 570px;
+    width: 550px;
     margin: 10px 10px;
 }
 
 .body #left.panel {
-    position: relative;
+    position: fixed;
     right: 10px;
 }
 
 .body #right.panel {
-    position: relative;
+    position: fixed;
     left: 10px;
+}
+
+img {
+    width: 500px;
+    height: 250px;
+}
+
+.secondpic {
+    width: 550px;
+    height: 130px;
 }

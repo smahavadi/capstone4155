@@ -2,8 +2,7 @@
 
 .header-nav {
     margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
+    
     background-color: #CF6969;
 }
 
@@ -23,4 +22,9 @@
     font-size: 20px;
     letter-spacing: 2px;
 }
+
+form {
+    text-align: center;
+}
+
 

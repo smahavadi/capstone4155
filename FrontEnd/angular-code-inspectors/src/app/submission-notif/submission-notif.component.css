@@ -1,0 +1,24 @@
+#bluebox {
+    background-color: #6FBADE;
+    overflow: hidden;
+    margin: 10px 10px;
+}
+
+#bluebox #yellowbox {
+    padding: 15px;
+    width: 60%;
+    margin: 115px auto;
+    background-color: #FCF3CD;
+    position: relative;
+}
+
+#bluebox #yellowbox p {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    line-height: 1px;
+    text-align: center;
+}
+
+#bluebox #yellowbox a {
+    text-decoration: underline;
+    color: black;
+}

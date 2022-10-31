@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutNotifComponent } from './logout-notif/logout-notif.component';
+import { LookupInspectorsComponent } from './lookup-inspectors/lookup-inspectors.component';
+import { InspectorlistComponent } from './inspectorlist/inspectorlist.component';
+import { ScheduleInspectionComponent } from './schedule-inspection/schedule-inspection.component';
+import { SubmissionNotifComponent } from './submission-notif/submission-notif.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,11 @@ import { LogoutNotifComponent } from './logout-notif/logout-notif.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutNotifComponent
+    LogoutNotifComponent,
+    LookupInspectorsComponent,
+    InspectorlistComponent,
+    ScheduleInspectionComponent,
+    SubmissionNotifComponent
   ],
   imports: [
     BrowserModule

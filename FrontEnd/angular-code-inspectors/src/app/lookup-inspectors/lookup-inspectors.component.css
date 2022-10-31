@@ -1,0 +1,33 @@
+#bluebox {
+    background-color: #6FBADE;
+    overflow: hidden;
+}
+
+#bluebox #yellowbox {
+    padding: 15px;
+    width: 60%;
+    margin: 115px auto;
+    background-color: #FCF3CD;
+    position: relative;
+}
+
+#bluebox #yellowbox p {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    line-height: 1px;
+    text-align: center;
+}
+
+#bluebox #yellowbox a {
+    text-decoration: underline;
+    color: black;
+}
+
+iframe {
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
