@@ -17,7 +17,7 @@ public class CodeInspectorController {
     @Autowired
     private CodeInspectorService codeInspectorService;
 
-    @GetMapping("/inspectors")
+    @GetMapping("/inspectors") //localhosturl/cci/inspectors
     public List<CodeInspector> getAll() {
         return codeInspectorService.getCodeInspectors();
     }
