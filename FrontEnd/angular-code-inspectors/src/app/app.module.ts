@@ -29,6 +29,9 @@ import { InspectorProfileComponent } from './inspector-profile/inspector-profile
   ],
   imports: [
     BrowserModule
+    RouterModule.forRoot([
+      {path: 'register', component: RegisterComponent},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
