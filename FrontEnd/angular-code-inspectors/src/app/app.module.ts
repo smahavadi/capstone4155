@@ -12,6 +12,7 @@ import { InspectorlistComponent } from './inspectorlist/inspectorlist.component'
 import { ScheduleInspectionComponent } from './schedule-inspection/schedule-inspection.component';
 import { SubmissionNotifComponent } from './submission-notif/submission-notif.component';
 import { InspectorProfileComponent } from './inspector-profile/inspector-profile.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { InspectorProfileComponent } from './inspector-profile/inspector-profile
     InspectorProfileComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
       {path: 'home/register', component: RegisterComponent},
