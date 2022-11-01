@@ -11,6 +11,7 @@ import { LookupInspectorsComponent } from './lookup-inspectors/lookup-inspectors
 import { InspectorlistComponent } from './inspectorlist/inspectorlist.component';
 import { ScheduleInspectionComponent } from './schedule-inspection/schedule-inspection.component';
 import { SubmissionNotifComponent } from './submission-notif/submission-notif.component';
+import { InspectorProfileComponent } from './inspector-profile/inspector-profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SubmissionNotifComponent } from './submission-notif/submission-notif.co
     LookupInspectorsComponent,
     InspectorlistComponent,
     ScheduleInspectionComponent,
-    SubmissionNotifComponent
+    SubmissionNotifComponent,
+    InspectorProfileComponent
   ],
   imports: [
     BrowserModule
