@@ -1,0 +1,30 @@
+.body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-align: center;
+    background-color: #6FBADE;
+    overflow: hidden;
+    margin: 10px 10px;
+    padding-bottom: 25px;
+}
+
+.body h3 {
+    text-align: left;
+    font-weight: bold;
+    margin: 35px 10px;
+    font-size: 25px;
+}
+
+.body .panel {
+    display: inline-block;
+    margin: 10px 10px;
+    height: 450px;
+    width: 350px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+.body .panel p {
+        position: relative;
+        bottom: 30px;
+        font-weight: bold;
+}
