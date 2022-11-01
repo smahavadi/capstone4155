@@ -15,7 +15,7 @@ input[type=submit] {
     padding: 8px 16px;
     margin: 4px 2px;
     position: relative;
-    left: 175px;
+    left: 260px;
 }
 
 .reg-sep {
@@ -30,9 +30,10 @@ input[type=submit] {
 
 .container label {
     font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
     position: relative;
-    right: 320px;
-    top: 20px;
+    right: 410px;
+    top: 17px;
 }
 
 .container input {
@@ -40,8 +41,9 @@ input[type=submit] {
     width: 40%;
     text-align: center;
     display: block;
+    margin-top: -10px;
     position: relative;
-    left: 215px;
+    left: 270px;
     border-radius: 10px;
 }
 
@@ -50,8 +52,9 @@ input[type=submit] {
     width: 40%;
     text-align: center;
     display: block;
+    margin-top: -10px;
     border-radius: 10px;
     border: 2px solid black;
     position: relative;
-    left: 215px;
+    left: 270px;
 }

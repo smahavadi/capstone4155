@@ -33,7 +33,8 @@ form {
     text-align: center;
     display: block;
     position: relative;
-    left: 196px;
+    left: 310px;
+    top: -32px;
     border-radius: 10px;
 }
 
