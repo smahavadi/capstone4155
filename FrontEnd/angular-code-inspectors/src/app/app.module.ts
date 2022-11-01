@@ -30,7 +30,8 @@ import { InspectorProfileComponent } from './inspector-profile/inspector-profile
   imports: [
     BrowserModule
     RouterModule.forRoot([
-      {path: 'register', component: RegisterComponent},
+      {path: 'home', component: HomeComponent},
+      {path: 'home/register', component: RegisterComponent},
     ]),
   ],
   providers: [],
