@@ -5,7 +5,7 @@
 }
 
 #bluebox #yellowbox {
-    padding: 15px;
+    padding: 35px;
     width: 60%;
     margin: 115px auto;
     background-color: #FCF3CD;
@@ -16,6 +16,7 @@
     font-family: 'Helvetica', 'Arial', sans-serif;
     line-height: 1px;
     text-align: center;
+    margin: 10px 10px;
 }
 
 #bluebox #yellowbox a {
