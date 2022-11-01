@@ -23,8 +23,8 @@ form {
 .login-form label {
     font-family: 'Helvetica', 'Arial', sans-serif;
     position: relative;
-    left: 110px;
-    top: 20px;
+    left: 167px;
+    top: -6px;
 }
 
 .login-form .input {
@@ -33,7 +33,7 @@ form {
     text-align: center;
     display: block;
     position: relative;
-    left: 310px;
+    left: 256px;
     top: -32px;
     border-radius: 10px;
 }
@@ -46,8 +46,7 @@ form {
     cursor: pointer;
     padding: 8px 16px;
     width: 30%;
-    margin: 4px 11px;
+    margin: -5px 9px;
     position: relative;
-    left: 82px;
-    top: 25px;
+    left: 119px;
 }
