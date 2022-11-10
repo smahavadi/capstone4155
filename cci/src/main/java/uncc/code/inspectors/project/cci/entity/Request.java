@@ -21,5 +21,6 @@ public class Request {
     private String location;
     private LocalDate time;
     private String notes;
-    private String codeInspector;
+    private Long ceoId;
+    private CodeInspector codeInspector;
 }

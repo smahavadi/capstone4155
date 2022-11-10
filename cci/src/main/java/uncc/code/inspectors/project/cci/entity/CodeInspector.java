@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,5 +36,6 @@ public class CodeInspector {
     private String county;
     private String username;
     private String password;
-    
+    private List<Request> pendingRequests;
+    private List<Request> upcomingReminders;
 }
