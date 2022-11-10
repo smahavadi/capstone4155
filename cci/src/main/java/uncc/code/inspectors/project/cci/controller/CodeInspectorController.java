@@ -38,7 +38,7 @@ public class CodeInspectorController {
     }
 
     @PutMapping("/update")
-    public CodeInspector updateCodeInspector(@RequestBody CodeInspector updatCodeInspector) {
+    public CodeInspector updateCodeInspector(@RequestBody CodeInspector updateCodeInspector) {
         return codeInspectorService.updateCodeInspector(updatCodeInspector);
     }
 
