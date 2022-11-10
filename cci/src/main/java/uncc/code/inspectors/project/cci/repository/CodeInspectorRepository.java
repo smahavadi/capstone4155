@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 
-public interface CodeInspectorRepository extends MongoRepository<CodeInspector, Long>{
-    // crud database methods
-
+public interface CodeInspectorRepository extends MongoRepository<CodeInspector, String>{
+    public List<CodeInspector> findAll();
 }

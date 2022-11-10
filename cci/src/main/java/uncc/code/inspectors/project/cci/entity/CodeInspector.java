@@ -18,7 +18,7 @@ import java.util.List;
 public class CodeInspector {
 
     @Id
-    private Long ceoId;
+    private String ceoId;
     private String certificationNum;
     private int level;
     private String firstName;
