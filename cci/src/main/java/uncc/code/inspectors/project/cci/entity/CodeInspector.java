@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class CodeInspector {
 
     @Id
-    private Long ceoId;
+    private String ceoId;
     private String certificationNum;
     private int level;
     private String firstName;

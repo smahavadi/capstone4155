@@ -20,7 +20,7 @@ import org.bson.Document;
  */
 
 @SpringBootApplication
-// @EnableMongoRepositories
+@EnableMongoRepositories
 public class CciApplication {
 
 	public static void main(String[] args) {
