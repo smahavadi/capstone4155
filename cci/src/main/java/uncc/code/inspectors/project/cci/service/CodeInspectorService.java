@@ -9,7 +9,7 @@ public interface CodeInspectorService {
     public List<CodeInspector> getCodeInspectors();
 
     // get single code inspectors
-    public CodeInspector getACodeInspector(Long id);
+    public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName);
 
     // create a new object
     public void createCodeInspector(CodeInspector codeInspector);

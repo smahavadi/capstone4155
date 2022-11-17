@@ -23,8 +23,11 @@ public class CodeInspectorController {
     }
 
     @GetMapping("/inspector")
-    public CodeInspector getInspector(@RequestParam Long id) {
-        return codeInspectorService.getACodeInspector(id);
+    public CodeInspector getInspector(@RequestParam(required=true) Long ceoId,
+                                        @RequestParam(required=true) String certificationNum,
+                                        @RequestParam(required=true) String firstName,
+                                        @RequestParam(required=true) String lastName) {
+        return codeInspectorService.getACodeInspector(ceoId, certificationNum, firstName, lastName);
     }
 
     @PostMapping("/new")
@@ -33,13 +36,13 @@ public class CodeInspectorController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteCodeInspector(@RequestParam Long id) {
-        codeInspectorService.deleteCodeInspector(id);
+    public void deleteCodeInspector(@RequestParam Long ceoId) {
+        codeInspectorService.deleteCodeInspector(ceoId);
     }
 
     @PutMapping("/update")
     public CodeInspector updateCodeInspector(@RequestBody CodeInspector updateCodeInspector) {
-        return codeInspectorService.updateCodeInspector(updatCodeInspector);
+        return codeInspectorService.updateCodeInspector(updateCodeInspector);
     }
 
 }

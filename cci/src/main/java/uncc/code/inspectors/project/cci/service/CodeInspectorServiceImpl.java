@@ -24,9 +24,9 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
 
     // get single code inspectors
     @Override
-    public CodeInspector getACodeInspector(Long id) {
-        CodeInspector updatedInspector = null;
-        return updatedInspector;
+    public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName)  {
+        CodeInspector codeInspector = codeInspectorRepository.findByCeoIdAndCertificationNumAndFirstNameAndLastName(id, cerNum, firstName, lastName);
+        return codeInspector;
     }
 
     // create a new object
