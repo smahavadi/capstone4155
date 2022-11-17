@@ -16,7 +16,7 @@ import uncc.code.inspectors.project.cci.entity.Request;
 public class CodeInspectorDto {
 
     @Id
-    private String ceoId;
+    private Long ceoId;
     private String certificationNum;
     private int level;
     private String firstName;
