@@ -18,9 +18,10 @@ import java.util.List;
 public class CodeInspector {
 
     @Id
+    private String id;
     private Long ceoId;
     private String certificationNum;
-    private int level;
+    private Integer level;
     private String firstName;
     private String lastName;
     private String email;
@@ -32,7 +33,7 @@ public class CodeInspector {
     private String address;
     private String city;
     private String state;
-    private int zipCode;
+    private Integer zipCode;
     private String county;
     private String username;
     private String password;

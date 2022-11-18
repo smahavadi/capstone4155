@@ -32,13 +32,13 @@ public class CodeInspectorController {
     }
 
     // used for adding new code inspector to collection if not present already
-    @PostMapping("/new")
+    @PostMapping("/inspector")
     public void createCodeInspector(@RequestBody CodeInspector newCodeInspector) {
         codeInspectorService.createCodeInspector(newCodeInspector);
     }
 
     // if code inspector leaves
-    @DeleteMapping("/delete")
+    @DeleteMapping("/inspector")
     public void deleteCodeInspector(@RequestParam(required=true) Long ceoId,
                                     @RequestParam(required=true) String certificationNum,
                                     @RequestParam(required=true) String firstName,
@@ -47,7 +47,7 @@ public class CodeInspectorController {
     }
 
     // used for adding username and password when creating an account, or updating info
-    @PutMapping("/update")
+    @PutMapping("/inspector/update")
     public CodeInspector updateCodeInspector(@RequestBody CodeInspector updateCodeInspector) {
         return codeInspectorService.updateCodeInspector(updateCodeInspector);
     }
