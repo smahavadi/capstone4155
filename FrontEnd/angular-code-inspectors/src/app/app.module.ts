@@ -13,6 +13,8 @@ import { ScheduleInspectionComponent } from './schedule-inspection/schedule-insp
 import { SubmissionNotifComponent } from './submission-notif/submission-notif.component';
 import { InspectorProfileComponent } from './inspector-profile/inspector-profile.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
       {path: 'home/register', component: RegisterComponent},

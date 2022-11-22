@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InspectorService } from '../service/inspector-service';
 
 @Component({
   selector: 'app-inspector-profile',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InspectorProfileComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private inspectorService: InspectorService) { }
+  
   ngOnInit(): void {
+    this.inspectorService.getInspectors().subscribe((data)=>{
+      console.log(data, "data");
+    });
   }
 
 }
