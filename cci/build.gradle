@@ -1,0 +1,39 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
+}
+
+group = 'uncc.code.inspectors.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation('org.mongodb:mongodb-driver-legacy:4.1.1')
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	// compile 'org.mongodb:mongodb-driver:3.6.3'
+    // compile 'org.springframework.data:spring-data-mongodb:4.7.2.RELEASE'
+    // compile group: 'org.mongodb', name: 'mongo-java-driver', version: '4.7.2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
