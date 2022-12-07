@@ -6,7 +6,7 @@ form {
     position: relative;
 }
 
-input[type=submit] {
+input[type=button] {
     background-color: #007BBC;
     color: white;
     font-family: 'Helvetica', 'Arial', sans-serif;

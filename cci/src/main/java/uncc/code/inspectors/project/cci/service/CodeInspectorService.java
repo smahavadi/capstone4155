@@ -14,12 +14,15 @@ public interface CodeInspectorService {
     public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName);
 
     // create a new object
-    public void createCodeInspector(CodeInspector codeInspector);
+    public CodeInspector createCodeInspector(CodeInspector codeInspector);
 
     // delete an object
     public void deleteCodeInspector(Long id, String cerNum, String firstName, String lastName);
 
     // update object
     public CodeInspector updateCodeInspector(CodeInspector codeInspector);
+
+    // login
+    public CodeInspector login(String username, String password);
 
 }

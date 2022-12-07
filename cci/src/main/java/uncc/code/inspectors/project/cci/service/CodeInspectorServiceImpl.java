@@ -36,6 +36,9 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
     @Override
     public List<CodeInspector> getCodeInspectors(CodeInspectorRequest codeInspectorRequest) {
         List<CodeInspector> inspectors = codeInspectorRepository.findAll();
+        for (CodeInspector inspector : inspectors) {
+            inspector.setPassword(null);
+        }
         return inspectors;
 
     }
@@ -44,12 +47,27 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
     @Override
     public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName)  {
         CodeInspector codeInspector = codeInspectorRepository.findByCeoIdAndCertificationNumAndFirstNameAndLastName(id, cerNum, firstName, lastName);
+        codeInspector.setPassword(null);
         return codeInspector;
     }
 
     @Override
-    public void createCodeInspector(CodeInspector codeInspector) {
-        // only create a code inspector if not present
+    public CodeInspector createCodeInspector(CodeInspector codeInspector) {
+        // Required fields: username, password, firstName, lastName,
+        // phone, email, level, type, certificationNum, ceoId
+        if (codeInspector.getUsername() == null || codeInspector.getPassword() == null
+                || codeInspector.getFirstName() == null || codeInspector.getLastName() == null
+                || codeInspector.getPhone() == null || codeInspector.getEmail() == null
+                || codeInspector.getLevel() == null || codeInspector.getType() == null
+                || codeInspector.getCertificationNum() == null || codeInspector.getCeoId() == null) {
+            return null;
+        }
+
+        // If a user with the same username exists, return null
+        if (codeInspectorRepository.findByUsername(codeInspector.getUsername()) != null) {
+            return null;
+        }
+
         CodeInspector newCodeInspector = new CodeInspector();
 
         newCodeInspector.setCeoId(codeInspector.getCeoId());
@@ -69,9 +87,22 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
         newCodeInspector.setZipCode(codeInspector.getZipCode());
         newCodeInspector.setCounty(codeInspector.getCounty());
         newCodeInspector.setUsername(codeInspector.getUsername());
-        newCodeInspector.setPassword(codeInspector.getPassword());
-            
+        setPassword(newCodeInspector, codeInspector.getPassword());
         codeInspectorRepository.save(newCodeInspector);
+        return newCodeInspector;
+    }
+
+    private static void setPassword(CodeInspector codeInspector, String password) {
+        if (password != null) {
+            password += "code-inspector-salt";
+            try {
+                var md = java.security.MessageDigest.getInstance("SHA256");
+                password = Base64.getEncoder().encodeToString(md.digest(password.getBytes()));
+                codeInspector.setPassword(password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // delete an object
@@ -126,10 +157,26 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
             updatedInspector.setUsername(codeInspector.getUsername());
         }
         if (codeInspector.getPassword() != null) {
-            updatedInspector.setPassword(codeInspector.getPassword());
+            setPassword(updatedInspector, codeInspector.getPassword());
         }
 
         return codeInspectorRepository.save(updatedInspector);
     }
 
+    // login
+    @Override
+    public CodeInspector login(String username, String password) {
+        password += "code-inspector-salt";
+        try {
+            var md = java.security.MessageDigest.getInstance("SHA256");
+            password = Base64.getEncoder().encodeToString(md.digest(password.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        CodeInspector codeInspector = codeInspectorRepository.findByUsernameAndPassword(username, password);
+        if (codeInspector != null) {
+            codeInspector.setPassword(null);
+        }
+        return codeInspector;
+    }
 }

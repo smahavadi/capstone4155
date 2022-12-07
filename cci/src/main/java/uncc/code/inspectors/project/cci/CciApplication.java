@@ -27,25 +27,6 @@ public class CciApplication {
 		SpringApplication.run(CciApplication.class, args);
 	}
 
-		// Bson filter = new Document();
 
-		// MongoClient mongoClient = new MongoClient(
-		// 	new MongoClientURI(
-		// 		"mongodb+srv://itcs4155:YG8LDwo4nWJZh7BG@cluster0.elkihwi.mongodb.net/test"
-		// 	)
-		// );
-
-		// // database info
-		// /**
-		//  *  spring.data.mongodb.username=itcs4155
-		// 	spring.data.mongodb.password=YG8LDwo4nWJZh7BG
-		// 	spring.data.mongodb.database=test
-		// 	spring.data.mongodb.port=27017
-		// 	spring.data.mongodb.host=cluster0.elkihwi.mongodb.net
-		//  */
-
-		// MongoDatabase database = mongoClient.getDatabase("fci");
-		// MongoCollection<Document> collection = database.getCollection("inspectors");
-		// FindIterable<Document> result = collection.find(filter);
 
 }
