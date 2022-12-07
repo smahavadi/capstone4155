@@ -1,18 +1,23 @@
 <link href="./header.component.css" rel="stylesheet">
 <div class="header-nav">
     <!--Replace logo below with our logo-->
-    <img src="/assets/images/logo.png" alt="Logo">
+    <a routerLink="/home" routerLinkActive="active"><img src="/assets/images/logo.png" alt="Logo"></a>
     <!--Link for code inspector search-->
     <div id="box">
-        <a class="search-link" href="#">Find Code Inspectors</a>
-        <!--<form id="form"> 
-            <label for="address">Code Inspector Lookup: </label><input type="search" id="query" name="q" placeholder="Search Address" id="address">
-            <button>Search</button>
-        </form> -->
+        <div *ngIf="this.route.url === '/home'">
+          <a class="search-link" [routerLink]="['/lookup']">Find Code Inspectors</a>
+        </div>
+        <div *ngIf="this.route.url !== '/home'">
+          <form id="form">
+              <label for="address">Code Inspector Lookup: </label><input type="search" id="query" name="q" placeholder="Search Address" id="address">
+              <button>Search</button>
+          </form>
+        </div>
+
         <!--<nav>
             Appears for inspects when logged in and users when looking up inspectors
             <a href="">Home</a>
-            Appears with home when inspector 
+            Appears with home when inspector
             is logged in
             <a href="">Logout</a>
         </nav>-->
