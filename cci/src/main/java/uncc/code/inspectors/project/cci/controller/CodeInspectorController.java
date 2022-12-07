@@ -18,7 +18,7 @@ public class CodeInspectorController {
     @Autowired
     private CodeInspectorService codeInspectorService;
 
-    @GetMapping("/inspectors") //localhosturl/cci/inspectors
+    @PostMapping("/inspectors") //localhosturl/cci/inspectors
     public List<CodeInspector> getAll(@RequestBody CodeInspectorRequest codeInspectorRequest) {
         return codeInspectorService.getCodeInspectors(codeInspectorRequest);
     }
@@ -33,8 +33,8 @@ public class CodeInspectorController {
 
     // used for adding new code inspector to collection if not present already
     @PostMapping("/inspector")
-    public void createCodeInspector(@RequestBody CodeInspector newCodeInspector) {
-        codeInspectorService.createCodeInspector(newCodeInspector);
+    public CodeInspector createCodeInspector(@RequestBody CodeInspector newCodeInspector) {
+        return codeInspectorService.createCodeInspector(newCodeInspector);
     }
 
     // if code inspector leaves
@@ -50,6 +50,12 @@ public class CodeInspectorController {
     @PutMapping("/inspector/update")
     public CodeInspector updateCodeInspector(@RequestBody CodeInspector updateCodeInspector) {
         return codeInspectorService.updateCodeInspector(updateCodeInspector);
+    }
+
+    // used for logging in
+    @PostMapping("/inspector/login")
+    public CodeInspector login(@RequestBody CodeInspector codeInspector) {
+        return codeInspectorService.login(codeInspector.getUsername(), codeInspector.getPassword());
     }
 
 }

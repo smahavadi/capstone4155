@@ -9,4 +9,6 @@ import uncc.code.inspectors.project.cci.entity.CodeInspector;
 public interface CodeInspectorRepository extends MongoRepository<CodeInspector, String>{
     public List<CodeInspector> findAll();
     public CodeInspector findByCeoIdAndCertificationNumAndFirstNameAndLastName(Long ceoId, String certificationNum, String firstName, String lastName);
+    public CodeInspector findByUsernameAndPassword(String username, String password);
+    public CodeInspector findByUsername(String username);
 }

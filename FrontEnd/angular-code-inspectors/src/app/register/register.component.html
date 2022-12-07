@@ -5,23 +5,27 @@
     <!--Username-->
     <div class="container">
         <label>Username:</label>
-        <input type="text" name="username" class="input">
+        <input type="text" name="username" id="username" class="input">
     <br>
     <!--Password-->
         <label>Password:</label>
-        <input type="text" name="password" class="input">
+        <input type="password" name="password" id="password" class="input">
     <br>
-    <!--Full name-->
-        <label>Full Name:</label>
-        <input type="text" name="fullName" class="input">
+    <!--First name-->
+        <label>First name:</label>
+        <input type="text" name="first_name" id="first_name" class="input">
+    <br>
+    <!--Last name-->
+        <label>Last name:</label>
+        <input type="text" name="last_name" id="last_name" class="input">
     <br>
     <!--Phone number-->
         <label>Phone number:</label>
-        <input type="tel" name="phoneNumber" class="input" placeholder="123-567-7890">
+        <input type="tel" name="phone" class="input" id="phone" placeholder="123-567-7890">
     <br>
     <!--Email-->
         <label>Email:</label>
-        <input type="text" name="email" class="input" placeholder="test@email.com">
+        <input type="text" name="email" class="input" id="email" placeholder="test@email.com">
     <br>
     <!--Level -> drop box-->
         <label>Level:</label>
@@ -32,11 +36,21 @@
         </select>
     <br>
     <!--Type-->
-        <label>Type:</label>
-        <input type="text" name="type" class="input">
+    <label>Type:</label>
+    <input type="text" name="type" id="type" class="input" placeholder="Standard/Probationary">
+    <br>
+
+    <!-- Certification Number -->
+    <label>Cert. Num:</label>
+    <input type="text" name="cert_num" id="certification_num" class="input">
+    <br>
+
+    <!-- CEO ID -->
+    <label>CEO ID:</label>
+    <input type="number" name="ceo_id" id="ceo_id" class="input">
     </div>
     <br>
-    <input type="submit" value="Create An Account">
+    <input type="button" value="Create An Account" (click)="register()" class="submit">
 </form>
 <!--End of form-->
 </div>
