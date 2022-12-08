@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import uncc.code.inspectors.project.cci.entity.Request;
+import uncc.code.inspectors.project.cci.entity.Slot;
 
 @Data
 @Entity
@@ -35,6 +35,5 @@ public class CodeInspectorDto {
     private String county;
     private String username;
     private String password;
-    private List<Request> pendingRequests;
-    private List<Request> upcomingReminders;
+    private List<Slot> slots;
 }

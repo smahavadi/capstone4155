@@ -39,19 +39,18 @@ form {
 
 @media screen and (min-width: 1300px) {
   .body .panel {
-    display: inline-block;
-    height: 500px;
+    /*display: inline-block;*/
     width: 700px;
     margin: 10px 10px;
   }
 
   .body #left.panel {
-    position: fixed;
+    /*position: fixed;*/
     right: 10px;
   }
 
   .body #right.panel {
-    position: fixed;
+    /*position: fixed;*/
     left: 10px;
   }
 
