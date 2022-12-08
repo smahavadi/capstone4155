@@ -11,7 +11,7 @@ public interface CodeInspectorService {
     public List<CodeInspector> getCodeInspectors(CodeInspectorRequest codeInspectorRequest);
 
     // get single code inspectors
-    public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName);
+    public CodeInspector getACodeInspector(String id);
 
     // create a new object
     public CodeInspector createCodeInspector(CodeInspector codeInspector);

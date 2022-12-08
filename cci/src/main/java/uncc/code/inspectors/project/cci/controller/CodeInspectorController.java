@@ -24,11 +24,8 @@ public class CodeInspectorController {
     }
 
     @GetMapping("/inspector")
-    public CodeInspector getInspector(  @RequestParam(required=true) Long ceoId,
-                                        @RequestParam(required=true) String certificationNum,
-                                        @RequestParam(required=true) String firstName,
-                                        @RequestParam(required=true) String lastName ) {
-        return codeInspectorService.getACodeInspector(ceoId, certificationNum, firstName, lastName);
+    public CodeInspector getInspector(  @RequestParam(required=true) String id) {
+        return codeInspectorService.getACodeInspector(id);
     }
 
     // used for adding new code inspector to collection if not present already

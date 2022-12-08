@@ -1,4 +1,5 @@
 export class Inspector {
+  id: string = '';
   firstName: string = '';
   lastName: string = '';
   phone: string = '';

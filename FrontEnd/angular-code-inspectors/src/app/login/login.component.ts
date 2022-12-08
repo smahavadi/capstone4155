@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    (document.getElementById("messages") as HTMLInputElement).innerHTML = "";
+
     // get username and password from form
     let username = (document.getElementById("username") as HTMLInputElement).value;
     let password = (document.getElementById("password") as HTMLInputElement).value;

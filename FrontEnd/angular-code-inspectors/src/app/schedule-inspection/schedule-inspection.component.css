@@ -29,28 +29,36 @@ img {
     height: 350px;
 }
 
+form {
+  background-color: #FCF3CD;
+}
+
 .body .panel {
+  background-color: #6FBADE;
+}
+
+@media screen and (min-width: 1300px) {
+  .body .panel {
     display: inline-block;
-    background-color: #6FBADE;
     height: 500px;
     width: 700px;
     margin: 10px 10px;
-}
+  }
 
-.body #left.panel {
+  .body #left.panel {
     position: fixed;
     right: 10px;
-}
+  }
 
-.body #right.panel {
+  .body #right.panel {
     position: fixed;
     left: 10px;
-}
+  }
 
-form {
+  form {
     padding: 15px;
     width: 60%;
     margin: 40px auto;
-    background-color: #FCF3CD;
     position: relative;
+  }
 }
