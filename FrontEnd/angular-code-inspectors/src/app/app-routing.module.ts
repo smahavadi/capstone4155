@@ -4,7 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from "./login/login.component";
 import {LookupInspectorsComponent} from "./lookup-inspectors/lookup-inspectors.component";
-import {InspectorListComponent} from "./inspectorlist/inspector-list.component";
+import {InspectorListComponent} from "./inspector-list/inspector-list.component";
 import {InspectorProfileComponent} from "./inspector-profile/inspector-profile.component";
 import {LogoutNotifComponent} from "./logout-notif/logout-notif.component";
 import {ScheduleInspectionComponent} from "./schedule-inspection/schedule-inspection.component";

@@ -9,8 +9,9 @@
         </div>
         <div *ngIf="this.route.url !== '/home'">
           <form id="form">
-              <label for="address">Code Inspector Lookup: </label><input type="search" id="query" name="q" placeholder="Search Address" id="address">
-              <button>Search</button>
+              <label for="search">Code Inspector Lookup: </label>
+              <input type="search" id="search" name="q" placeholder="Search Address">
+              <button (click)="search()">Search</button>
           </form>
         </div>
 

@@ -23,6 +23,22 @@ export class InspectorService {
     );
   }
 
+  getInspectorsByQuery(query: string) {
+    // TODO: Proximity search based on address
+
+    // if it's a zipcode (xxxxx or xxxxx-xxxx), search by zipcode
+    if (query.match(/^\d{5}(?:[-\s]\d{4})?$/)) {
+      // get the first 5 digits of the zipcode
+      let zipcode = query.substring(0, 5);
+      return this.http.post("http://localhost:8080/cci/inspectors",
+        {zipCode: Number(zipcode)},
+        {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+      );
+    }
+    // otherwise, return all inspectors
+    return this.getInspectors();
+  }
+
   register(username: string, password: string, firstName: string,
            lastName: string, phone: string, email: string, level: number, type: string,
            certificationNum: string, ceoId: number) {
