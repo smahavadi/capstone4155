@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -13,4 +13,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  search() {
+    const query = (document.getElementById("search") as HTMLInputElement).value;
+    this.route.navigate(['/inspectors'], {queryParams: {query: query}});
+  }
 }

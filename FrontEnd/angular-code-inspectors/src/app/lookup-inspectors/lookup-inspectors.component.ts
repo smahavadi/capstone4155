@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-lookup-inspectors',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LookupInspectorsComponent implements OnInit {
 
-  constructor() { }
+    constructor(protected route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

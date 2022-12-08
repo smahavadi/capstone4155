@@ -35,12 +35,50 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
     // get code inspectors
     @Override
     public List<CodeInspector> getCodeInspectors(CodeInspectorRequest codeInspectorRequest) {
-        List<CodeInspector> inspectors = codeInspectorRepository.findAll();
+        // TODO: Filter with a Mongo query. Not a huge issue since the # of records is small.
+        List<CodeInspector> inspectors = new ArrayList<>();
+
+        final Long ceoId = (codeInspectorRequest == null) ? null : codeInspectorRequest.getCeoId();
+        final Integer level = (codeInspectorRequest == null) ? null : codeInspectorRequest.getLevel();
+        final String lastName = (codeInspectorRequest == null) ? null : codeInspectorRequest.getLastName();
+        final String trade = (codeInspectorRequest == null) ? null : codeInspectorRequest.getTrade();
+        final String type = (codeInspectorRequest == null) ? null : codeInspectorRequest.getType();
+        final String employer = (codeInspectorRequest == null) ? null : codeInspectorRequest.getEmployer();
+        final String county = (codeInspectorRequest == null) ? null : codeInspectorRequest.getCounty();
+        final Integer zipCode = (codeInspectorRequest == null) ? null : codeInspectorRequest.getZipCode();
+
+        for (CodeInspector inspector : codeInspectorRepository.findAll()) {
+            if (ceoId != null && !inspector.getCeoId().equals(ceoId)) {
+                continue;
+            }
+            if (level != null && !inspector.getLevel().equals(level)) {
+                continue;
+            }
+            if (lastName != null && !inspector.getLastName().equals(lastName)) {
+                continue;
+            }
+            if (trade != null && !inspector.getTrade().equals(trade)) {
+                continue;
+            }
+            if (type != null && !inspector.getType().equals(type)) {
+                continue;
+            }
+            if (employer != null && !inspector.getEmployer().equals(employer)) {
+                continue;
+            }
+            if (county != null && !inspector.getCounty().equals(county)) {
+                continue;
+            }
+            if (zipCode != null && !inspector.getZipCode().equals(zipCode)) {
+                continue;
+            }
+            inspectors.add(inspector);
+        }
+
         for (CodeInspector inspector : inspectors) {
             inspector.setPassword(null);
         }
         return inspectors;
-
     }
 
     // get single code inspectors
