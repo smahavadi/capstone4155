@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
       if (data == null) {
         (document.getElementById("messages") as HTMLInputElement).innerHTML = "Invalid username or password.";
       } else {
+        data.username = username;
+        data.password = password;
         sessionStorage.setItem("user", JSON.stringify(data));
         this.route.navigate(['/profile']);
       }

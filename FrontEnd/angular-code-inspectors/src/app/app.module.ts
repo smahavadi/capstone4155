@@ -14,6 +14,8 @@ import {SubmissionNotifComponent} from './submission-notif/submission-notif.comp
 import {InspectorProfileComponent} from './inspector-profile/inspector-profile.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from "./app-routing.module";
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 
 
 @NgModule({
@@ -33,7 +35,11 @@ import {AppRoutingModule} from "./app-routing.module";
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

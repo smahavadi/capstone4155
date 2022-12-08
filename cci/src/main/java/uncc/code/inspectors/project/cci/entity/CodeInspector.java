@@ -37,6 +37,5 @@ public class CodeInspector {
     private String county;
     private String username;
     private String password;
-    private List<Request> pendingRequests;
-    private List<Request> upcomingReminders;
+    private List<Slot> slots;
 }

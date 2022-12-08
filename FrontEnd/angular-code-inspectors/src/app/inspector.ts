@@ -16,12 +16,23 @@ export class Inspector {
   state: string = '';
   zipCode: number = 0;
   county: string = '';
-  pendingRequests: PendingRequest[] | null = null;
-  upcomingReminders: UpcomingReminder[] | null = null;
+  slots: Slot[] | null = null;
+  username: string | null = null;
+  password: string | null = null;
 }
 
-export class PendingRequest {
+export class Slot {
+  startTime: string = '';
+  endTime: string = '';
+  approvedApplication: Application | null = null;
+  pendingApplications: Application[] | null = null;
 }
 
-export class UpcomingReminder {
+export class Application {
+  name: string = '';
+  phone: string = '';
+  email: string = '';
+  inspectionType: string = '';
+  address: string = '';
+  notes: string = '';
 }
