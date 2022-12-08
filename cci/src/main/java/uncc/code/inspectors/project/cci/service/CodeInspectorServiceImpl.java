@@ -69,7 +69,7 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
             if (county != null && !inspector.getCounty().equals(county)) {
                 continue;
             }
-            if (zipCode != null && !inspector.getZipCode().equals(zipCode)) {
+            if (zipCode != null && (inspector.getZipCode() == null || !inspector.getZipCode().equals(zipCode))) {
                 continue;
             }
             inspectors.add(inspector);
@@ -83,10 +83,13 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
 
     // get single code inspectors
     @Override
-    public CodeInspector getACodeInspector(Long id, String cerNum, String firstName, String lastName)  {
-        CodeInspector codeInspector = codeInspectorRepository.findByCeoIdAndCertificationNumAndFirstNameAndLastName(id, cerNum, firstName, lastName);
-        codeInspector.setPassword(null);
-        return codeInspector;
+    public CodeInspector getACodeInspector(String id)  {
+        Optional<CodeInspector> codeInspector = codeInspectorRepository.findById(id);
+        if (codeInspector.isPresent()) {
+            codeInspector.get().setPassword(null);
+            return codeInspector.get();
+        }
+        return null;
     }
 
     @Override

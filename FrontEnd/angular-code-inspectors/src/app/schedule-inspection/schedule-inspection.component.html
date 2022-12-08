@@ -1,16 +1,4 @@
 <html>
-    <!-- <div id="bluebox">
-        <div>
-            <h3>John Doe #1                 123-456-7890                    email@gmail.com</h3>
-        </div>
-        <br>
-        <h3> Click on each date to see which what times are available</h3>
-        <br>
-        <img src="/assets/images/calendar.png" alt="Logo" class="secondpic">
-        <div>
-
-        </div>
-    </div> -->
     <body class="body">
         <div class="panel" id="left">
             <div id="yellowbox">
@@ -34,10 +22,9 @@
                     <br>
                     <!--Phone number-->
                         <label>Inspection Type:</label>
-                        <select name="inspectionType" id="inspectionType">
-                            <option value="plumbing">plumbing</option>
-                            <option value="mechanical">mechanical</option>
-                            <option value="electrical">electrical</option>
+                        <select *ngIf="inspector !== null" name="inspectionType" id="inspectionType">
+                          <!-- TODO: Support multiple inspection types for each inspector -->
+                          <option value="{{inspector.trade}}">{{inspector.trade}}</option>
                         </select>
                     <br>
                     <br>
@@ -49,7 +36,7 @@
                     <!--Type-->
                         <label>Time:</label>
                         <input type="text" name="time" class="input">
-                
+
                     <br>
                     <br>
                         <label>Additional Notes:</label>
@@ -61,7 +48,11 @@
             </div>
         </div>
         <div class="panel" id="right">
-            <h4>John Doe #1                 123-456-7890                    email@gmail.com</h4>
+            <h4 *ngIf="inspector !== null">
+              <span>{{inspector.firstName}} {{inspector.lastName}} </span>
+              <span>{{ inspector.phone }} </span>
+              <span>{{ inspector.email }}</span>
+            </h4>
             <br>
             <h4> Click on each date to see which what times are available</h4>
             <br>

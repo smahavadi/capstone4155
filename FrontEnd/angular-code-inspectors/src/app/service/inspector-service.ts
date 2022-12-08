@@ -23,6 +23,10 @@ export class InspectorService {
     );
   }
 
+  getInspectorById(id: string) {
+    return this.http.get("http://localhost:8080/cci/inspector?id=" + id);
+  }
+
   getInspectorsByQuery(query: string) {
     // TODO: Proximity search based on address
 

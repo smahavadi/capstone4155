@@ -19,7 +19,7 @@
         <th>Email</th>
       </tr>
       <tr *ngFor="let inspector of inspectors">
-        <td>{{inspector.firstName}} {{inspector.lastName}}</td>
+        <td><a [routerLink]="['/schedule']" [queryParams]="{id: inspector.id}">{{inspector.firstName}} {{inspector.lastName}}</a></td>
         <td>{{inspector.trade}}</td>
         <td>{{inspector.level}}</td>
         <td>{{inspector.city}}</td>
