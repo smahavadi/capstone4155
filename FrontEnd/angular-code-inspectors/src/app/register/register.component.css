@@ -1,9 +1,12 @@
+
 form {
     padding: 15px;
     width: 60%;
     margin: 40px auto;
     background-color: #FCF3CD;
     position: relative;
+    overflow: auto;
+    min-width: 717.21px;
 }
 
 input[type=button] {
@@ -20,7 +23,7 @@ input[type=button] {
 
 .reg-sep {
     background-color: #6FBADE;
-    overflow: hidden;
+    overflow: auto;
     margin: 10px 10px;
 }
 
