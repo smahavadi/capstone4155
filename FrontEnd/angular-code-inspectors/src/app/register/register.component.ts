@@ -8,6 +8,7 @@ import {InspectorService} from "../service/inspector-service";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  errorMessage: string = "";
 
   constructor(protected route: Router, private inspectorService: InspectorService) { }
 
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.errorMessage = "";
     let username = (document.getElementById("username") as HTMLInputElement).value;
     let password = (document.getElementById("password") as HTMLInputElement).value;
     let firstName = (document.getElementById("first_name") as HTMLInputElement).value;
@@ -27,7 +29,7 @@ export class RegisterComponent implements OnInit {
     let ceoId = (document.getElementById("ceo_id") as HTMLInputElement).value;
 
     if (username == "" || password == "" || firstName == "" || lastName == "" || phone == "" || email == "" || level == "" || type == "" || certificationNum == "" || ceoId == "") {
-      (document.getElementById("messages") as HTMLInputElement).innerHTML = "Please fill out all fields.";
+      this.errorMessage = "Please fill out all fields.";
       return;
     }
 
@@ -35,7 +37,7 @@ export class RegisterComponent implements OnInit {
 
     user.subscribe((data: any) => {
       if (data == null) {
-        (document.getElementById("messages") as HTMLInputElement).innerHTML = "Username already exists or password does not meet requirements.";
+        this.errorMessage = "Username already exists or password does not meet requirements.";
       } else {
         sessionStorage.setItem("user", JSON.stringify(data));
         this.route.navigate(['/profile']);
