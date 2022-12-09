@@ -1,17 +1,19 @@
-<html>
-    <!--Login form-->
-    <form>
-            <div class="login-form">
-                    <p>Log in to your account</p>
-                    <label>Username:</label>
-                    <input class="input" id="username" type="text" name="username">
-                    <br>
-                    <!--Password-->
-                    <label>Password:</label>
-                    <input class="input" id="password" type="password" name="password">
-                    <br>
-                    <input class="submit" value="Create an Account" type="button" (click)="goToRegister()">
-                    <input class="submit" value="Log In" type="button" (click)="login()">
-            </div>
-    </form>
-</html>
+<form class="mx-auto">
+  <div class="mb-3">
+    <p class="text-center fw-bold">Log in to your account</p>
+  </div>
+  <div class="mb-3">
+    <label for="username">Username</label>
+    <input class="form-control" id="username" type="text" name="username">
+  </div>
+  <div class="mb-3">
+    <label for="password">Password</label>
+    <input class="form-control" id="password" type="password" name="password">
+  </div>
+    <div class="col-md-12 text-center">
+        <button type="button" class="submit" (click)="goToRegister()">Create An Account</button>
+    </div>
+    <div class="col-md-12 text-center">
+        <button type="button" class="submit" (click)="login()">Log In</button>
+    </div>
+</form>
