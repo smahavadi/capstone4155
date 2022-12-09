@@ -1,49 +1,7 @@
 .body {
-    text-align: center;
-    min-width: 1215.36px;
-}
-
-.body .panel {
-    display: inline-block;
-    background-color: #6FBADE;
-    height: 400px;
-    width: 550px;
     margin: 10px 10px;
 }
 
-.body #left.panel {
-    position: relative;
-    right: 10px;
-    top: 3px;
-}
-
-.body #left.panel a {
+a {
     text-decoration: none;
-    color: black;
-    font-size: 25px;
-}
-
-.body #right.panel {
-    position: relative;
-    left: 10px;
-    top: 27px;
-}
-
-.body #right.panel p {
-    position: relative;
-    bottom: -28px;
-}
-
-.secondpic {
-    width: 450px;
-    height: 240px;
-    position: relative;
-}
-
-.firstpic {
-    position: relative;
-    bottom: 20px;
-    left: 12px;
-    width: 500px;
-    height: 250px;
 }
