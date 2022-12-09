@@ -8,6 +8,7 @@ import {InspectorService} from "../service/inspector-service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  errorMessage: string = "";
 
   constructor(protected route: Router, private inspectorService: InspectorService) { }
 
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    (document.getElementById("messages") as HTMLInputElement).innerHTML = "";
+    this.errorMessage = "";
 
     // get username and password from form
     let username = (document.getElementById("username") as HTMLInputElement).value;
@@ -27,14 +28,14 @@ export class LoginComponent implements OnInit {
 
     // if either username or password is empty, return and display error message
     if (username == "" || password == "") {
-      (document.getElementById("messages") as HTMLInputElement).innerHTML = "Please enter a username and password.";
+      this.errorMessage = "Please enter a username and password.";
       return;
     }
 
     let user = this.inspectorService.getInspectorByUsernameAndPassword(username, password);
     user.subscribe((data: any) => {
       if (data == null) {
-        (document.getElementById("messages") as HTMLInputElement).innerHTML = "Invalid username or password.";
+        this.errorMessage = "Invalid username or password.";
       } else {
         data.username = username;
         data.password = password;

@@ -1,3 +1,6 @@
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
 <form>
   <div class="mb-3">
     <label for="username">Username</label>
@@ -39,8 +42,8 @@
     </select>
   </div>
   <div class="mb-3">
-    <label for="certification_number">Cert. Num</label>
-    <input type="text" placeholder="Enter your certification number" id="certification_number" class="form-control">
+    <label for="certification_num">Cert. Num</label>
+    <input type="text" placeholder="Enter your certification number" id="certification_num" class="form-control">
   </div>
   <div class="mb-3">
     <label for="ceo_id">CEO ID</label>
