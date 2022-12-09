@@ -1,63 +1,45 @@
-
 form {
-    padding: 15px;
-    width: 60%;
-    margin: 40px auto;
-    background-color: #FCF3CD;
-    position: relative;
-    overflow: auto;
-    min-width: 717.21px;
+  width: 50%;
+  margin: auto;
 }
 
-input[type=button] {
-    background-color: #007BBC;
-    color: white;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    margin: 4px 2px;
-    position: relative;
-    left: 260px;
+form input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.reg-sep {
-    background-color: #6FBADE;
-    overflow: auto;
-    margin: 10px 10px;
+form label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-.container {
-    text-align: right;
+form select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.container label {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    font-weight: bold;
-    position: relative;
-    right: 410px;
-    top: 17px;
+button.submit {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.container input {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    width: 40%;
-    text-align: center;
-    display: block;
-    margin-top: -10px;
-    position: relative;
-    left: 270px;
-    border-radius: 10px;
-}
-
-.container select {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    width: 40%;
-    text-align: center;
-    display: block;
-    margin-top: -10px;
-    border-radius: 10px;
-    border: 2px solid black;
-    position: relative;
-    left: 270px;
+/* Add hover effect for the submit button */
+button.submit:hover {
+  background-color: #45a049;
 }
