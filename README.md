@@ -1,8 +1,25 @@
 # capstone4155
 Capstone Project for ITSC 4155
 
-<<<<<<< HEAD
-This is the front-end branch for the project. 
-=======
-Hello, this is Valli making an update on VSCode!
->>>>>>> origin/api-implementation
+## Running the application
+
+### Frontend
+
+For detailed instructions on how to run the frontend, 
+see [FrontEnd/angular-code-inspectors/README.md](FrontEnd/angular-code-inspectors/README.md).
+
+Quick start for development:
+```bash
+cd FrontEnd/angular-code-inspectors
+npm install
+npm run start
+```
+
+
+### Backend
+
+Quick start for development:
+```bash
+cd cci
+./gradlew bootRun
+```
