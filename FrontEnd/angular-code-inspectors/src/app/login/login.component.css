@@ -1,52 +1,41 @@
 form {
-    background-color: #6FBADE;
-    overflow: hidden;
-    margin: 10px 10px;
+  width: 50%;
+  margin: auto;
 }
 
-.login-form p {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
-    bottom: 20px;
+form input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.login-form {
-    padding: 100px 10px;
-    width: 60%;
-    margin: 21px auto;
-    background-color: #FCF3CD;
-    position: relative;
+form label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-.login-form label {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    position: relative;
-    left: 167px;
-    top: -6px;
+button.submit {
+  color: #fff;
+  width: 50%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+  border: 0;
+  outline: 0;
+  transition: all 0.25s;
+  background: #007BBC;
 }
 
-.login-form .input {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    width: 40%;
-    text-align: center;
-    display: block;
-    position: relative;
-    left: 256px;
-    top: -32px;
-    border-radius: 10px;
-}
-
-.login-form .submit {
-    background-color: #007BBC;
-    color: white;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    width: 30%;
-    margin: -5px 9px;
-    position: relative;
-    left: 119px;
+/* Add hover effect for the submit button */
+button.submit:hover {
+  background-color: #fff;
+  color: #007BBC;
 }
