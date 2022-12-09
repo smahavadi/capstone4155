@@ -36,23 +36,23 @@
                         <label>Time:</label>
                         <input type="text" name="time" id="time" class="input" disabled>
 
-                    <br>
-                    <br>
-                        <label>Additional Notes:</label>
-                        <textarea name="notes" class="input" rows="4" cols="40"></textarea>
-                    </div>
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-        <div class="panel" id="right">
-            <h4 *ngIf="inspector !== null">
-              <span>{{inspector.firstName}} {{inspector.lastName}} </span>
-              <span>{{ inspector.phone }} </span>
-              <span>{{ inspector.email }}</span>
-            </h4>
-            <br>
+        <br>
+        <br>
+        <label>Additional Notes:</label>
+        <textarea name="notes" class="input" rows="4" cols="40"></textarea>
+      </div>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+<div class="panel" id="right">
+  <h4 *ngIf="inspector !== null">
+    <span>{{inspector.firstName}} {{inspector.lastName}} </span>
+    <span>{{ inspector.phone }} </span>
+    <span>{{ inspector.email }}</span>
+  </h4>
+  <br>
 
             <h4 *ngIf="events.length > 0">Click on each date to see which what times are available</h4>
             <h4 *ngIf="events.length === 0">This inspector has no available times</h4>
