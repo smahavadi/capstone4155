@@ -1,22 +1,27 @@
-<html>
-    <body class="body">
-        <div class="panel" id="left">
-            <h2>Welcome Code Inspectors!</h2>
-            <h2><a [routerLink]="['/register']">Create an Account</a></h2>
-            <h2><a [routerLink]="['/login']">Log-in</a></h2>
-            <img src="/assets/images/inspection2.jpg" alt="Logo" class="secondpic">
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="" alt="">
+        <div class="card-body">
+          <h2 class="card-title">Welcome Code Inspectors!</h2>
+          <h3 class="card-text"><a [routerLink]="['/register']">Create an Account</a></h3>
+          <h3><a [routerLink]="['/login']">Log-in</a></h3>
+            <img src="/assets/images/inspection2.jpg" alt="Logo" class="w-100">
         </div>
-        <div class="panel" id="right">
-            <h2>Welcome Users!</h2>
-            <p>Use the top navigation to explore code inspectors in your location!</p>
-            <br>
-            <br>
-            <br>
-            <img src="/assets/images/Inspection(real).png" alt="Logo" class="firstpic">
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="" alt="">
+        <div class="card-body">
+          <h2 class="card-title">Find Code Inspectors</h2>
+          <h3 class="card-text"><a [routerLink]="['/search']">Search for Code Inspectors</a></h3>
+          <p class="card-text">Use the top navigation to explore code inspectors in your location!</p>
+          <img src="/assets/images/Inspection(real).png" alt="Logo" class="w-100">
         </div>
-    </body>
-    <!--Testing routing to Register-->
-    <!--<nav>
-        <a class="button" (click)="toRegister()">Register</a> |
-      </nav>-->
-</html>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,27 +1,49 @@
 <link href="./header.component.css" rel="stylesheet">
-<div class="header-nav">
-    <!--Replace logo below with our logo-->
-    <a routerLink="/home" routerLinkActive="active"><img src="/assets/images/logo.png" alt="Logo"></a>
-    <!--Link for code inspector search-->
-    <div id="box">
-        <div *ngIf="this.route.url === '/home'">
-          <a class="search-link" [routerLink]="['/lookup']">Find Code Inspectors</a>
-        </div>
-        <div *ngIf="this.route.url !== '/home'">
-          <form id="form">
-              <label for="search">Code Inspector Lookup: </label>
-              <input type="search" id="search" name="q" placeholder="Search Address">
-              <button (click)="search()">Search</button>
-          </form>
-        </div>
-
-        <!--<nav>
-            Appears for inspects when logged in and users when looking up inspectors
-            <a href="">Home</a>
-            Appears with home when inspector
-            is logged in
-            <a href="">Logout</a>
-        </nav>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light bg-coral">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <a class="navbar-brand" routerLink="/home" routerLinkActive="active"><img id="logo" src="/assets/images/logo.png" alt="logo" width="50" height="50"></a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/lookup']">Find Code Inspectors</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" aria-label="Search" id="search" name="q" placeholder="Search Address">
+        <button class="btn btn-dark" type="submit" (click)="search()">Search</button>
+      </form>
     </div>
-    <div id="messages"></div>
-</div>
+  </div>
+</nav>
+<!--<div class="header-nav">-->
+<!--    &lt;!&ndash;Replace logo below with our logo&ndash;&gt;-->
+<!--    <a routerLink="/home" routerLinkActive="active"><img src="/assets/images/logo.png" alt="Logo"></a>-->
+<!--    &lt;!&ndash;Link for code inspector search&ndash;&gt;-->
+<!--    <div id="box">-->
+<!--        <div *ngIf="this.route.url === '/home'">-->
+<!--          <a class="search-link" [routerLink]="['/lookup']">Find Code Inspectors</a>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div *ngIf="this.route.url !== '/home'">&ndash;&gt;-->
+<!--&lt;!&ndash;          <form id="form">&ndash;&gt;-->
+<!--&lt;!&ndash;              <label for="search">Code Inspector Lookup: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;              <input type="search" id="search" name="q" placeholder="Search Address">&ndash;&gt;-->
+<!--&lt;!&ndash;              <button (click)="search()">Search</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </form>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;<nav>-->
+<!--            Appears for inspects when logged in and users when looking up inspectors-->
+<!--            <a href="">Home</a>-->
+<!--            Appears with home when inspector-->
+<!--            is logged in-->
+<!--            <a href="">Logout</a>-->
+<!--        </nav>&ndash;&gt;-->
+<!--    </div>-->
+<!--    <div id="messages"></div>-->
+<!--</div>-->
