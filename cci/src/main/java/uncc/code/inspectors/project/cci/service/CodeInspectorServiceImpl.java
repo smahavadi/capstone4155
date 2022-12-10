@@ -215,11 +215,6 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
                     continue;
                 }
 
-                // TODO: Remove debug printing here
-                System.out.println(slot.getStartTime());
-                System.out.println(application.getTime());
-                System.out.println(slot.getStartTime().equals(application.getTime()));
-
                 if (slot.getStartTime().equals(application.getTime())) {
                     // Add the application to the pending applications
                     var pendingApplications = slot.getPendingApplications();
