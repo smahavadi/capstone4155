@@ -11,6 +11,7 @@ import {InspectorService} from "../service/inspector-service";
 export class InspectorListComponent implements OnInit {
   inspectors: Inspector[] = [];
   loading: boolean = true;
+  sortedByLevelAscending: boolean = false;
 
   constructor(protected route: ActivatedRoute, private inspectorService: InspectorService) { }
 
@@ -32,6 +33,19 @@ export class InspectorListComponent implements OnInit {
       this.inspectors = data;
       this.loading = false;
     });
+  }
+
+  sortByLevel() {
+    // Sort the inspectors in ascending order by default
+    this.inspectors.sort((a, b) => (a.level > b.level) ? 1 : -1);
+
+    // If the array is already sorted in ascending order,
+    // sort it in descending order instead
+    if (this.sortedByLevelAscending) {
+      this.inspectors.reverse();
+    }
+
+    this.sortedByLevelAscending = !this.sortedByLevelAscending;
   }
 
 }
