@@ -47,9 +47,34 @@ export class InspectorService {
            lastName: string, phone: string, email: string, level: number, type: string,
            certificationNum: string, ceoId: number) {
     return this.http.post("http://localhost:8080/cci/inspector",
-      {username: username, password: password, firstName: firstName, lastName: lastName,
+      {
+        username: username, password: password, firstName: firstName, lastName: lastName,
         phone: phone, email: email, level: level, type: type, certificationNum: certificationNum,
-        ceoId: ceoId},
+        ceoId: ceoId
+      },
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+    );
+  }
+
+  scheduleInspection(id: string,
+                     nameInput: string,
+                     phoneInput: string,
+                     emailInput: string,
+                     inspectionTypeInput: string,
+                     addressInput: string,
+                     timeInput: string,
+                     notesInput: string) {
+    return this.http.post("http://localhost:8080/cci/inspector/schedule",
+      {
+        id: id,
+        name: nameInput,
+        phone: phoneInput,
+        email: emailInput,
+        inspectionType: inspectionTypeInput,
+        address: addressInput,
+        time: new Date(timeInput),
+        notes: notesInput
+      },
       {headers: new HttpHeaders({'Content-Type': 'application/json'})},
     );
   }

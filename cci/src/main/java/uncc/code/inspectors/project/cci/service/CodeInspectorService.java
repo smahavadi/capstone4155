@@ -1,5 +1,6 @@
 package uncc.code.inspectors.project.cci.service;
 
+import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
@@ -25,4 +26,6 @@ public interface CodeInspectorService {
     // login
     public CodeInspector login(String username, String password);
 
+    // schedule inspection
+    public CodeInspector scheduleInspection(Application application);
 }

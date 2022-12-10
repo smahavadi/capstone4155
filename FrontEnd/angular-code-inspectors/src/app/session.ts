@@ -5,7 +5,6 @@ export function setLoginData(data: Inspector) {
 }
 
 export function isLoggedIn() {
-  console.log("Checking if logged in");
   return sessionStorage.getItem("user") != null;
 }
 
