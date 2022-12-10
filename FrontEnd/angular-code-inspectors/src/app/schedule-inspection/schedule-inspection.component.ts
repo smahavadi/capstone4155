@@ -45,6 +45,8 @@ export class ScheduleInspectionComponent implements OnInit {
 
   inspector: Inspector | null = null;
   viewDate: Date = new Date();
+  errorMessage: string = '';
+  successMessage: string = '';
 
   actions: CalendarEventAction[] = [
     {
@@ -132,10 +134,74 @@ export class ScheduleInspectionComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
+    if (this.successMessage) {
+      // Already submitted
+      return;
+    }
     const timeInput = (document.getElementById('time') as HTMLInputElement);
     if (timeInput != null) {
       timeInput.value = event.start.toLocaleString();
     }
+  }
+
+  schedule() {
+    this.errorMessage = '';
+    if (this.successMessage) {
+      // Already submitted
+      return;
+    }
+    const nameInput = (document.getElementById('name') as HTMLInputElement)?.value;
+    const phoneInput = (document.getElementById('phone') as HTMLInputElement)?.value;
+    const emailInput = (document.getElementById('email') as HTMLInputElement)?.value;
+    const inspectionTypeInput = (document.getElementById('inspectionType') as HTMLInputElement)?.value;
+    const addressInput = (document.getElementById('address') as HTMLInputElement)?.value;
+    const timeInput = (document.getElementById('time') as HTMLInputElement)?.value;
+    const notesInput = (document.getElementById('notes') as HTMLInputElement)?.value;
+
+    if (nameInput == null || nameInput === '') {
+      this.errorMessage = 'Please enter a name';
+      return;
+    }
+
+    if (phoneInput == null || phoneInput === '') {
+      this.errorMessage = 'Please enter a phone number';
+      return;
+    }
+
+    if (emailInput == null || emailInput === '') {
+      this.errorMessage = 'Please enter an email';
+      return;
+    }
+
+    if (inspectionTypeInput == null || inspectionTypeInput === '') {
+      this.errorMessage = 'Please enter an inspection type';
+      return;
+    }
+
+    if (addressInput == null || addressInput === '') {
+      this.errorMessage = 'Please enter an address';
+      return;
+    }
+
+    if (timeInput == null || timeInput === '') {
+      this.errorMessage = 'Please select a time';
+      return;
+    }
+
+    this.inspectorService.scheduleInspection(this.inspector?.id || "",
+      nameInput,
+      phoneInput,
+      emailInput,
+      inspectionTypeInput,
+      addressInput,
+      timeInput,
+      notesInput).subscribe((data: any) => {
+      if (data == null) {
+        this.errorMessage = 'Failed to schedule inspection';
+      } else {
+        this.successMessage = 'Your inspection request has been submitted. You will receive an email confirmation once your request has processed by the inspector.'
+      }
+    });
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

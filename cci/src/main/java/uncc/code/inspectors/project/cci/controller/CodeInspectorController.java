@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.*;
 
+import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.service.CodeInspectorService;
 import uncc.code.inspectors.request.CodeInspectorRequest;
@@ -53,6 +54,11 @@ public class CodeInspectorController {
     @PostMapping("/inspector/login")
     public CodeInspector login(@RequestBody CodeInspector codeInspector) {
         return codeInspectorService.login(codeInspector.getUsername(), codeInspector.getPassword());
+    }
+
+    @PostMapping("/inspector/schedule")
+    public CodeInspector scheduleInspection(@RequestBody Application application) {
+        return codeInspectorService.scheduleInspection(application);
     }
 
 }

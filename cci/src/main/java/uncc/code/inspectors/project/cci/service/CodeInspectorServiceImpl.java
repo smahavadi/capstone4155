@@ -1,10 +1,12 @@
 package uncc.code.inspectors.project.cci.service;
 
+import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.entity.Pagination;
 import uncc.code.inspectors.project.cci.repository.CodeInspectorRepository;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
+import java.time.ZoneId;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CodeInspectorServiceImpl implements CodeInspectorService{
+public class CodeInspectorServiceImpl implements CodeInspectorService {
 
     @Autowired
     public CodeInspectorRepository codeInspectorRepository;
 
-    public Pagination setPagination (Page<CodeInspector> results, int startPage, int size) {
+    public Pagination setPagination(Page<CodeInspector> results, int startPage, int size) {
         Pagination pagination = new Pagination();
         pagination.setCurrentPage(results.getNumber());
         pagination.setStartPage(startPage);
         pagination.setRecordsPerPage(size);
-        pagination.setLastPage(results.getTotalPages()-1);
+        pagination.setLastPage(results.getTotalPages() - 1);
         pagination.setTotalRecords(results.getTotalElements());
         return pagination;
     }
@@ -74,22 +76,13 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
             }
             inspectors.add(inspector);
         }
-
-        for (CodeInspector inspector : inspectors) {
-            inspector.setPassword(null);
-        }
-        return inspectors;
+        return withoutPrivateData(inspectors);
     }
 
     // get single code inspectors
     @Override
-    public CodeInspector getACodeInspector(String id)  {
-        Optional<CodeInspector> codeInspector = codeInspectorRepository.findById(id);
-        if (codeInspector.isPresent()) {
-            codeInspector.get().setPassword(null);
-            return codeInspector.get();
-        }
-        return null;
+    public CodeInspector getACodeInspector(String id) {
+        return withoutPrivateData(codeInspectorRepository.findById(id).orElse(null));
     }
 
     @Override
@@ -130,20 +123,7 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
         newCodeInspector.setUsername(codeInspector.getUsername());
         setPassword(newCodeInspector, codeInspector.getPassword());
         codeInspectorRepository.save(newCodeInspector);
-        return newCodeInspector;
-    }
-
-    private static void setPassword(CodeInspector codeInspector, String password) {
-        if (password != null) {
-            password += "code-inspector-salt";
-            try {
-                var md = java.security.MessageDigest.getInstance("SHA256");
-                password = Base64.getEncoder().encodeToString(md.digest(password.getBytes()));
-                codeInspector.setPassword(password);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        return withoutSensitiveData(newCodeInspector);
     }
 
     // delete an object
@@ -201,7 +181,7 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
             setPassword(updatedInspector, codeInspector.getPassword());
         }
 
-        return codeInspectorRepository.save(updatedInspector);
+        return withoutPrivateData(codeInspectorRepository.save(updatedInspector));
     }
 
     // login
@@ -214,10 +194,110 @@ public class CodeInspectorServiceImpl implements CodeInspectorService{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        CodeInspector codeInspector = codeInspectorRepository.findByUsernameAndPassword(username, password);
+        return withoutSensitiveData(codeInspectorRepository.findByUsernameAndPassword(username, password));
+    }
+
+    @Override
+    public CodeInspector scheduleInspection(Application application) {
+        // Find the inspector with the given id
+        CodeInspector codeInspector = codeInspectorRepository.findById(application.getId()).orElse(null);
+        boolean success = false;
+        if (codeInspector != null) {
+            // Find a slot with the given time
+            var slots = codeInspector.getSlots();
+            if (slots == null) {
+                slots = new ArrayList<>();
+            }
+            for (int i = 0; i < slots.size(); i++) {
+                var slot = slots.get(i);
+                // If the slot has an approved application, skip it
+                if (slot.getApprovedApplication() != null) {
+                    continue;
+                }
+
+                // TODO: Remove debug printing here
+                System.out.println(slot.getStartTime());
+                System.out.println(application.getTime());
+                System.out.println(slot.getStartTime().equals(application.getTime()));
+
+                if (slot.getStartTime().equals(application.getTime())) {
+                    // Add the application to the pending applications
+                    var pendingApplications = slot.getPendingApplications();
+                    if (pendingApplications == null) {
+                        pendingApplications = new ArrayList<>();
+                    }
+                    pendingApplications.add(application);
+                    slot.setPendingApplications(pendingApplications);
+                    slots.set(i, slot);
+                    success = true;
+                    break;
+                }
+            }
+            if (success) {
+                codeInspector.setSlots(slots);
+                codeInspectorRepository.save(codeInspector);
+            }
+        }
+        if (success) {
+            return withoutPrivateData(codeInspector);
+        } else {
+            return null;
+        }
+    }
+
+    private static void setPassword(CodeInspector codeInspector, String password) {
+        if (password != null) {
+            password += "code-inspector-salt";
+            try {
+                var md = java.security.MessageDigest.getInstance("SHA256");
+                password = Base64.getEncoder().encodeToString(md.digest(password.getBytes()));
+                codeInspector.setPassword(password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Removes sensitive data from the given code inspector. This is data that should never be returned to the client.
+     *
+     * @param codeInspector The code inspector to remove sensitive data from.
+     * @return The code inspector without sensitive data.
+     */
+    private static CodeInspector withoutSensitiveData(CodeInspector codeInspector) {
         if (codeInspector != null) {
             codeInspector.setPassword(null);
+            codeInspector.setUsername(null);
         }
         return codeInspector;
+    }
+
+    private static List<CodeInspector> withoutSensitiveData(List<CodeInspector> codeInspectors) {
+        codeInspectors.replaceAll(CodeInspectorServiceImpl::withoutSensitiveData);
+        return codeInspectors;
+    }
+
+    /**
+     * Removes private data from the given code inspector. This is data that should only be returned to the client if
+     * they are the code inspector.
+     */
+    private static CodeInspector withoutPrivateData(CodeInspector codeInspector) {
+        if (codeInspector != null) {
+            codeInspector.setPassword(null);
+            codeInspector.setUsername(null);
+            var slots = codeInspector.getSlots();
+            if (slots != null) {
+                slots.forEach(slot -> {
+                    slot.setPendingApplications(null);
+                    slot.setApprovedApplication(null);
+                });
+            }
+        }
+        return codeInspector;
+    }
+
+    private static List<CodeInspector> withoutPrivateData(List<CodeInspector> codeInspectors) {
+        codeInspectors.replaceAll(CodeInspectorServiceImpl::withoutPrivateData);
+        return codeInspectors;
     }
 }

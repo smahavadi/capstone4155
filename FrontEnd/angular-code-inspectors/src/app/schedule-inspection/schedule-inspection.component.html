@@ -1,3 +1,9 @@
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="successMessage">
+  {{successMessage}}
+</div>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -9,37 +15,37 @@
           <form>
             <div class="mb-3">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter Name">
+              <input type="text" class="form-control" id="name" placeholder="Enter Name" [disabled]="!!successMessage">
             </div>
             <div class="mb-3">
-              <label for="phoneNumber">Phone Number</label>
-              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number">
+              <label for="phone">Phone Number</label>
+              <input type="text" class="form-control" id="phone" placeholder="Enter Phone Number" [disabled]="!!successMessage">
             </div>
             <div class="mb-3">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter Email">
+              <input type="email" class="form-control" id="email" placeholder="Enter Email" [disabled]="!!successMessage">
             </div>
             <div class="mb-3">
               <!--           TODO: Support multiple inspection types for each inspector &ndash;&gt;-->
               <label for="inspectionType">Inspection Type</label>
-              <select *ngIf="inspector !== null" name="inspectionType" id="inspectionType" class="form-select">
+              <select *ngIf="inspector !== null" name="inspectionType" id="inspectionType" class="form-select" [disabled]="!!successMessage">
                 <option value="{{inspector.trade}}">{{inspector.trade}}</option>
               </select>
             </div>
             <div class="mb-3">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="Enter Address">
+              <input type="text" class="form-control" id="address" placeholder="Enter Address" [disabled]="!!successMessage">
             </div>
             <div class="mb-3">
               <label for="time">Time</label>
-              <input type="text" class="form-control" id="time" disabled>
+              <input type="text" class="form-control" id="time" disabled placeholder="Please select from Calendar">
             </div>
             <div class="mb-3">
               <label for="notes">Additional Notes</label>
-              <textarea class="form-control" id="notes" rows="3"></textarea>
+              <textarea class="form-control" id="notes" rows="3" [disabled]="!!successMessage"></textarea>
             </div>
             <div class="mb-3 text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" (click)="schedule()" [disabled]="!!successMessage">Submit</button>
             </div>
           </form>
         </div>
