@@ -1,63 +1,6 @@
-#bluebox {
-    background-color: #6FBADE;
-    overflow: hidden;
-    margin: 10px 10px;
-}
-
-#bluebox #yellowbox {
-    padding: 15px;
-    width: 60%;
-    margin: 115px auto;
-    background-color: #FCF3CD;
-    float: right;
-}
-
-#bluebox #yellowbox p {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    line-height: 1px;
-    text-align: center;
-}
-
-#bluebox #yellowbox a {
-    text-decoration: underline;
-    color: black;
-}
-
-img {
-    margin-left: 40px;
-    width: 400px;
-    height: 350px;
-}
-
-form {
-  background-color: #FCF3CD;
-}
-
-.body .panel {
-  background-color: #6FBADE;
-}
-
-@media screen and (min-width: 1300px) {
-  .body .panel {
-    /*display: inline-block;*/
-    width: 700px;
-    margin: 10px 10px;
-  }
-
-  .body #left.panel {
-    /*position: fixed;*/
-    right: 10px;
-  }
-
-  .body #right.panel {
-    /*position: fixed;*/
-    left: 10px;
-  }
-
-  form {
-    padding: 15px;
-    width: 60%;
-    margin: 40px auto;
-    position: relative;
-  }
+form label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
