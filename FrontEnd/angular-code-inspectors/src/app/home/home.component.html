@@ -6,7 +6,10 @@
         <div class="card-body">
           <h2 class="card-title">Welcome Code Inspectors!</h2>
           <h3 class="card-text"><a [routerLink]="['/register']">Create an Account</a></h3>
-          <h3><a [routerLink]="['/login']">Log-in</a></h3>
+          <h3>
+            <a [routerLink]="['/login']" *ngIf="!loggedIn">Log-in</a>
+            <a [routerLink]="['/profile']" *ngIf="loggedIn">Visit Profile</a>
+          </h3>
             <img src="/assets/images/inspection2.jpg" alt="Logo" class="w-100">
         </div>
       </div>

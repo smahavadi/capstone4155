@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import {isLoggedIn} from "../session";
 
 
 @Component({
@@ -8,8 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  loggedIn: boolean = isLoggedIn();
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
 
   }
 

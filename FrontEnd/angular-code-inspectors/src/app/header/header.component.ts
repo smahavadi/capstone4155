@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {isLoggedIn} from "../session";
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,9 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  loggedIn(): boolean {
+    return isLoggedIn();
+  }
 
   constructor(protected route: Router) { }
 
