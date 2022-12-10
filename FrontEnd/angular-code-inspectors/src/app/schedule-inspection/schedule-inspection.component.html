@@ -1,151 +1,152 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-header">
-                    <h4 class="card-title">Inspector Inspection Request</h4>
-                </div>
-              <div class="card-body">
-                <form>
-                    <div class="mb-3">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Enter Name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="phoneNumber">Phone Number</label>
-                      <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number">
-                    </div>
-                    <div class="mb-3">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="Enter Email">
-                    </div>
-                    <div class="mb-3">
-<!--           TODO: Support multiple inspection types for each inspector &ndash;&gt;-->
-                      <label for="inspectionType">Inspection Type</label>
-                      <select *ngIf="inspector !== null" name="inspectionType" id="inspectionType" class="form-select">
-                        <option value="{{inspector.trade}}">{{inspector.trade}}</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="address">Address</label>
-                      <input type="text" class="form-control" id="address" placeholder="Enter Address">
-                    </div>
-                    <div class="mb-3">
-                      <label for="time">Time</label>
-                      <input type="text" class="form-control" id="time" disabled>
-                    </div>
-                    <div class="mb-3">
-                      <label for="notes">Additional Notes</label>
-                      <textarea class="form-control" id="notes" rows="3"></textarea>
-                    </div>
-                  <div class="mb-3 text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h4 class="card-title">Inspector Inspection Request</h4>
         </div>
-      <div class="col-md-8">
-        <div class="card h-100">
-          <div class="card-header">
-            <h4 class="card-title" *ngIf="inspector !== null">Availibility for {{inspector.firstName}} {{inspector.lastName}} - {{inspector.phone}} - {{inspector.email}}</h4>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter Name">
+            </div>
+            <div class="mb-3">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number">
+            </div>
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter Email">
+            </div>
+            <div class="mb-3">
+              <!--           TODO: Support multiple inspection types for each inspector &ndash;&gt;-->
+              <label for="inspectionType">Inspection Type</label>
+              <select *ngIf="inspector !== null" name="inspectionType" id="inspectionType" class="form-select">
+                <option value="{{inspector.trade}}">{{inspector.trade}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="Enter Address">
+            </div>
+            <div class="mb-3">
+              <label for="time">Time</label>
+              <input type="text" class="form-control" id="time" disabled>
+            </div>
+            <div class="mb-3">
+              <label for="notes">Additional Notes</label>
+              <textarea class="form-control" id="notes" rows="3"></textarea>
+            </div>
+            <div class="mb-3 text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card h-100">
+        <div class="card-header">
+          <h4 class="card-title" *ngIf="inspector !== null">Availibility
+            for {{inspector.firstName}} {{inspector.lastName}} - {{inspector.phone}} - {{inspector.email}}</h4>
+        </div>
+        <div class="card-body">
+          <h4 *ngIf="events.length > 0">Click on each date to see which what times are available</h4>
+          <h4 *ngIf="events.length === 0">This inspector has no available times</h4>
+          <div class="row text-center">
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarPreviousView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Previous
+                </div>
+                <div
+                  class="btn btn-outline-secondary"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate"
+                >
+                  Today
+                </div>
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Next
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Month)"
+                  [class.active]="view === CalendarView.Month"
+                >
+                  Month
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Week)"
+                  [class.active]="view === CalendarView.Week"
+                >
+                  Week
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Day)"
+                  [class.active]="view === CalendarView.Day"
+                >
+                  Day
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <h4 *ngIf="events.length > 0">Click on each date to see which what times are available</h4>
-            <h4 *ngIf="events.length === 0">This inspector has no available times</h4>
-            <div class="row text-center">
-              <div class="col-md-4">
-                <div class="btn-group">
-                  <div
-                    class="btn btn-primary"
-                    mwlCalendarPreviousView
-                    [view]="view"
-                    [(viewDate)]="viewDate"
-                    (viewDateChange)="closeOpenMonthViewDay()"
-                  >
-                    Previous
-                  </div>
-                  <div
-                    class="btn btn-outline-secondary"
-                    mwlCalendarToday
-                    [(viewDate)]="viewDate"
-                  >
-                    Today
-                  </div>
-                  <div
-                    class="btn btn-primary"
-                    mwlCalendarNextView
-                    [view]="view"
-                    [(viewDate)]="viewDate"
-                    (viewDateChange)="closeOpenMonthViewDay()"
-                  >
-                    Next
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-              </div>
-              <div class="col-md-4">
-                <div class="btn-group">
-                  <div
-                    class="btn btn-primary"
-                    (click)="setView(CalendarView.Month)"
-                    [class.active]="view === CalendarView.Month"
-                  >
-                    Month
-                  </div>
-                  <div
-                    class="btn btn-primary"
-                    (click)="setView(CalendarView.Week)"
-                    [class.active]="view === CalendarView.Week"
-                  >
-                    Week
-                  </div>
-                  <div
-                    class="btn btn-primary"
-                    (click)="setView(CalendarView.Day)"
-                    [class.active]="view === CalendarView.Day"
-                  >
-                    Day
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div [ngSwitch]="view">
-              <mwl-calendar-month-view
-                *ngSwitchCase="CalendarView.Month"
-                [viewDate]="viewDate"
-                [events]="events"
-                [refresh]="refresh"
-                [activeDayIsOpen]="activeDayIsOpen"
-                (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="handleEvent('Clicked', $event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)"
-              >
-              </mwl-calendar-month-view>
-              <mwl-calendar-week-view
-                *ngSwitchCase="CalendarView.Week"
-                [viewDate]="viewDate"
-                [events]="events"
-                [refresh]="refresh"
-                (eventClicked)="handleEvent('Clicked', $event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)"
-              >
-              </mwl-calendar-week-view>
-              <mwl-calendar-day-view
-                *ngSwitchCase="CalendarView.Day"
-                [viewDate]="viewDate"
-                [events]="events"
-                [refresh]="refresh"
-                (eventClicked)="handleEvent('Clicked', $event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)"
-              >
-              </mwl-calendar-day-view>
-            </div>
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="CalendarView.Month"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view
+              *ngSwitchCase="CalendarView.Week"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view
+              *ngSwitchCase="CalendarView.Day"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-day-view>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
 

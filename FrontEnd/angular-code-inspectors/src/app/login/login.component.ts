@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {InspectorService} from "../service/inspector-service";
+import {setLoginData, isLoggedIn} from "../session";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,9 @@ export class LoginComponent implements OnInit {
   constructor(protected route: Router, private inspectorService: InspectorService) { }
 
   ngOnInit(): void {
+    if (isLoggedIn()) {
+      this.route.navigate(['/profile']);
+    }
   }
 
   goToRegister() {
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
       } else {
         data.username = username;
         data.password = password;
-        sessionStorage.setItem("user", JSON.stringify(data));
+        setLoginData(data);
         this.route.navigate(['/profile']);
       }
     });

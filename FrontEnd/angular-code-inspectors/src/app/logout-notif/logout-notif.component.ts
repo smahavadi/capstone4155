@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {logout} from "../session";
 
 @Component({
   selector: 'app-logout-notif',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutNotifComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    logout();
+  }
 
   ngOnInit(): void {
   }
