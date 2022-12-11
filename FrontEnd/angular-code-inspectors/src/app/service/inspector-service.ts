@@ -78,6 +78,28 @@ export class InspectorService {
       {headers: new HttpHeaders({'Content-Type': 'application/json'})},
     );
   }
+
+  acceptApplication(inspector: any, application: any, message: string) {
+    return this.http.post("http://localhost:8080/cci/inspector/accept",
+      {
+        inspector: inspector,
+        application: application,
+        message: message
+      },
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+    );
+  }
+
+  rejectApplication(inspector: any, application: any, message: string) {
+    return this.http.post("http://localhost:8080/cci/inspector/reject",
+      {
+        inspector: inspector,
+        application: application,
+        message: message
+      },
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+    );
+  }
 }
 
 

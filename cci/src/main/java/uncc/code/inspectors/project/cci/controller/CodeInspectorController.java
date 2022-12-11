@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.web.bind.annotation.*;
 
 import uncc.code.inspectors.project.cci.entity.Application;
+import uncc.code.inspectors.project.cci.entity.ApplicationResponse;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.service.CodeInspectorService;
 import uncc.code.inspectors.request.CodeInspectorRequest;
@@ -56,9 +57,22 @@ public class CodeInspectorController {
         return codeInspectorService.login(codeInspector.getUsername(), codeInspector.getPassword());
     }
 
+    // used for scheduling a new inspection
     @PostMapping("/inspector/schedule")
     public CodeInspector scheduleInspection(@RequestBody Application application) {
         return codeInspectorService.scheduleInspection(application);
     }
 
+    // used for accepting an application
+    @PostMapping("/inspector/accept")
+    public CodeInspector acceptApplication(@RequestBody ApplicationResponse applicationResponse) {
+        return codeInspectorService.acceptApplication(applicationResponse.getInspector(), applicationResponse.getApplication(), applicationResponse.getMessage());
+    }
+
+    // used for rejecting an application
+    @PostMapping("/inspector/reject")
+    public CodeInspector rejectApplication(@RequestBody ApplicationResponse applicationResponse) {
+        return codeInspectorService.rejectApplication(applicationResponse.getInspector(), applicationResponse.getApplication(), applicationResponse.getMessage());
+    }
 }
+

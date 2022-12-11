@@ -19,6 +19,39 @@ export class Inspector {
   slots: Slot[] | null = null;
   username: string | null = null;
   password: string | null = null;
+
+  constructor(j: any) {
+    this.id = j.id;
+    this.firstName = j.firstName;
+    this.lastName = j.lastName;
+    this.phone = j.phone;
+    this.email = j.email;
+    this.level = j.level;
+    this.type = j.type;
+    this.certificationNum = j.certificationNum;
+    this.ceoId = j.ceoId;
+    this.trade = j.trade;
+    this.employer = j.employer;
+    this.expirationDate = j.expirationDate;
+    this.address = j.address;
+    this.city = j.city;
+    this.state = j.state;
+    this.zipCode = j.zipCode;
+    this.county = j.county;
+    this.slots = j.slots;
+    this.username = j.username;
+    this.password = j.password;
+  }
+
+  public pendingApplications(): Application[] {
+    const applications = new Array<Application>();
+    for (const slot of this?.slots || []) {
+      if (slot.pendingApplications) {
+        applications.push(...slot.pendingApplications);
+      }
+    }
+    return applications;
+  }
 }
 
 export class Slot {
@@ -29,10 +62,12 @@ export class Slot {
 }
 
 export class Application {
+  id: string = '';
   name: string = '';
   phone: string = '';
   email: string = '';
   inspectionType: string = '';
   address: string = '';
   notes: string = '';
+  time: string = '';
 }

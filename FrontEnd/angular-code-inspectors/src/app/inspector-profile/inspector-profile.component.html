@@ -1,17 +1,115 @@
-<html>
-    <body class="body">
-        <h3>Welcome to the Code Inspector Portal, {{ inspector?.firstName }} {{inspector?.lastName}}</h3>
-        <!--Calender-->
-        <div class="panel" id="calender">
-            <p>Calender</p>
+<!-- View application modal -->
+<div class="modal" id="viewApplicationModal" tabindex="-1"
+     role="dialog" aria-labelledby="viewApplicationModalLabel" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewApplicationModalLabel">Application Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p>Name: {{ selectedApplication?.name }}</p>
+          </div>
+          <div class="col-md-6">
+            <p>{{ selectedApplication?.time | date:'short' }}</p>
+          </div>
         </div>
-        <!--Pending requests-->
-        <div class="panel" id="requests">
-            <p>Pending requests</p>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Type: {{ selectedApplication?.inspectionType }}</p>
+          </div>
+          <div class="col-md-6">
+            <p>Address: {{ selectedApplication?.address }}</p>
+          </div>
         </div>
-        <!--Upcoming reminders-->
-        <div class="panel" id="reminders">
-            <p>Upcoming reminders</p>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Phone: {{ selectedApplication?.phone }}</p>
+          </div>
+          <div class="col-md-6">
+            <p>Email: {{ selectedApplication?.email }}</p>
+          </div>
         </div>
-    </body>
-</html>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Notes: {{ selectedApplication?.notes }}</p>
+          </div>
+        </div>
+        <!-- Field to add a message for the applicant receiving an approval or denial -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="message">Write a message to the applicant:</label>
+              <textarea class="form-control" id="message" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="acceptApplication(selectedApplication)">Accept</button>
+        <button type="button" class="btn btn-danger" (click)="rejectApplication(selectedApplication)">Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h3>Welcome to the Code Inspector Portal, {{ inspector?.firstName }} {{inspector?.lastName}}</h3>
+
+  <div class="row">
+    <!--Pending requests-->
+    <div class="col-md-4">
+      <div class="card" id="requests">
+        <div class="card-body">
+          <h4 class="card-title">Pending requests</h4>
+          <p class="card-text">You have {{ inspector?.pendingApplications()?.length || 0 }} pending request(s).</p>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let application of inspector?.pendingApplications()">
+              <!--Show a preview with the name of the applicant, the time they requested the inspection, and the type of inspection-->
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Name: {{ application?.name }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p>{{ application?.time | date:'short' }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Type: {{ application?.inspectionType }}</p>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-info" (click)="viewApplication(application)">View Details</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Calender-->
+    <div class="col-md-4">
+      <div class="card" id="calender">
+        <div class="card-body">
+          <h4 class="card-title">Calender</h4>
+        </div>
+      </div>
+    </div>
+
+    <!--Upcoming reminders-->
+    <div class="col-md-4">
+      <div class="card" id="reminders">
+        <div class="card-body">
+          <h4 class="card-title">Upcoming reminders</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

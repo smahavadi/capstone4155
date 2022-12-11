@@ -32,6 +32,7 @@ dependencies {
 	// compile 'org.mongodb:mongodb-driver:3.6.3'
     // compile 'org.springframework.data:spring-data-mongodb:4.7.2.RELEASE'
     // compile group: 'org.mongodb', name: 'mongo-java-driver', version: '4.7.2'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {
