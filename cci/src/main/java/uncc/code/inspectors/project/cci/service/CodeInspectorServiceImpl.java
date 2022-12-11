@@ -264,6 +264,11 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             return null;
         }
 
+        // Verify credentials
+        if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
+            return null;
+        }
+
         // Find the slot with the given time
         var slots = codeInspector.getSlots();
         if (slots == null) {
@@ -331,6 +336,11 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             return null;
         }
 
+        // Verify credentials
+        if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
+            return null;
+        }
+
         // Find the slot with the given time
         var slots = codeInspector.getSlots();
         if (slots == null) {
@@ -389,6 +399,24 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static boolean checkCredentials(CodeInspector codeInspector, String username, String password) {
+        if (codeInspector == null || username == null || password == null) {
+            return false;
+        }
+        if (!codeInspector.getUsername().equals(username)) {
+            return false;
+        }
+        password += "code-inspector-salt";
+        try {
+            var md = java.security.MessageDigest.getInstance("SHA256");
+            password = Base64.getEncoder().encodeToString(md.digest(password.getBytes()));
+            return codeInspector.getPassword().equals(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
