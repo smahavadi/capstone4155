@@ -28,4 +28,10 @@ public interface CodeInspectorService {
 
     // schedule inspection
     public CodeInspector scheduleInspection(Application application);
+
+    // accept application
+    CodeInspector acceptApplication(CodeInspector inspector, Application application, String message);
+
+    // reject application
+    CodeInspector rejectApplication(CodeInspector inspector, Application application, String message);
 }

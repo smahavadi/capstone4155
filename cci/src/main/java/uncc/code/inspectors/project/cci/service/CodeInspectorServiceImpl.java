@@ -1,12 +1,16 @@
 package uncc.code.inspectors.project.cci.service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.server.ResponseStatusException;
 import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.entity.Pagination;
 import uncc.code.inspectors.project.cci.repository.CodeInspectorRepository;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
-import java.time.ZoneId;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,9 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
 
     @Autowired
     public CodeInspectorRepository codeInspectorRepository;
+
+    @Autowired
+    public JavaMailSender emailSender;
 
     public Pagination setPagination(Page<CodeInspector> results, int startPage, int size) {
         Pagination pagination = new Pagination();
@@ -201,6 +208,10 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
     public CodeInspector scheduleInspection(Application application) {
         // Find the inspector with the given id
         CodeInspector codeInspector = codeInspectorRepository.findById(application.getId()).orElse(null);
+
+        // Replace the application.id with a new UUID to uniquely identify the application
+        application.setId(UUID.randomUUID().toString());
+
         boolean success = false;
         if (codeInspector != null) {
             // Find a slot with the given time
@@ -240,6 +251,134 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
         }
     }
 
+    @Override
+    public CodeInspector acceptApplication(CodeInspector inspector, Application application, String message) {
+        if (inspector == null || application == null) {
+            return null;
+        }
+
+        // Find the inspector with the given id
+        CodeInspector codeInspector = codeInspectorRepository.findById(inspector.getId()).orElse(null);
+
+        if (codeInspector == null) {
+            return null;
+        }
+
+        // Find the slot with the given time
+        var slots = codeInspector.getSlots();
+        if (slots == null) {
+            return null;
+        }
+
+        boolean success = false;
+        for (int i = 0; i < slots.size(); i++) {
+            var slot = slots.get(i);
+            if (slot.getStartTime().equals(application.getTime())) {
+                // Find the application with the given id
+                var pendingApplications = slot.getPendingApplications();
+                if (pendingApplications == null) {
+                    return null;
+                }
+                for (int j = 0; j < pendingApplications.size(); j++) {
+                    var pendingApplication = pendingApplications.get(j);
+                    if (pendingApplication.getId().equals(application.getId())) {
+                        // If the slot already has an approved application, raise a 409 Conflict
+                        if (slot.getApprovedApplication() != null) {
+                            throw new ResponseStatusException(HttpStatus.CONFLICT, "Slot already has an approved application");
+                        }
+                        // Remove the application from the pending applications
+                        pendingApplications.remove(j);
+                        slot.setPendingApplications(pendingApplications);
+
+                        // Add the application to the approved application
+                        slot.setApprovedApplication(application);
+                        slots.set(i, slot);
+                        success = true;
+                        break;
+                    }
+                }
+            }
+            if (success) {
+                break;
+            }
+        }
+
+        if (success) {
+            codeInspector.setSlots(slots);
+            codeInspectorRepository.save(codeInspector);
+            try {
+                notifyUser(application, inspector, message, "approved");
+            } catch (Exception e) {
+                e.printStackTrace();
+                // TODO: Use a queue to retry sending the email
+            }
+
+            return withoutPrivateData(codeInspector);
+        }
+        return null;
+    }
+
+    @Override
+    public CodeInspector rejectApplication(CodeInspector inspector, Application application, String message) {
+        if (inspector == null || application == null) {
+            return null;
+        }
+
+        // Find the inspector with the given id
+        CodeInspector codeInspector = codeInspectorRepository.findById(inspector.getId()).orElse(null);
+
+        if (codeInspector == null) {
+            return null;
+        }
+
+        // Find the slot with the given time
+        var slots = codeInspector.getSlots();
+        if (slots == null) {
+            return null;
+        }
+
+        boolean success = false;
+        for (int i = 0; i < slots.size(); i++) {
+            var slot = slots.get(i);
+            if (slot.getStartTime().equals(application.getTime())) {
+                // Find the application with the given id
+                var pendingApplications = slot.getPendingApplications();
+                if (pendingApplications == null) {
+                    return null;
+                }
+                for (int j = 0; j < pendingApplications.size(); j++) {
+                    var pendingApplication = pendingApplications.get(j);
+                    if (pendingApplication.getId().equals(application.getId())) {
+                        // Remove the application from the pending applications
+                        pendingApplications.remove(j);
+                        slot.setPendingApplications(pendingApplications);
+                        slots.set(i, slot);
+                        success = true;
+                        break;
+                    }
+                }
+            }
+            if (success) {
+                break;
+            }
+        }
+
+        if (success) {
+            codeInspector.setSlots(slots);
+            codeInspectorRepository.save(codeInspector);
+
+            try {
+                notifyUser(application, inspector, message, "rejected");
+            } catch (Exception e) {
+                e.printStackTrace();
+                // TODO: Use a queue to retry sending the email
+            }
+
+            return withoutPrivateData(codeInspector);
+        }
+        return null;
+    }
+
     private static void setPassword(CodeInspector codeInspector, String password) {
         if (password != null) {
             password += "code-inspector-salt";
@@ -251,6 +390,52 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void notifyUser(Application application, CodeInspector inspector, String message, String action) {
+        String email = application.getEmail();
+        String subject = "Code Inspector Application Response";
+        String body = new StringBuilder()
+                .append("Your application for the Code Inspector on ")
+                .append(application.getTime())
+                .append(" has been ")
+                .append(action)
+                .append("\n\n")
+                .append("Applicant Name: ")
+                .append(application.getName())
+                .append("\n")
+                .append("Applicant Email: ")
+                .append(application.getEmail())
+                .append("\n")
+                .append("Applicant Phone: ")
+                .append(application.getPhone())
+                .append("\n")
+                .append("Applicant Notes: ")
+                .append(application.getNotes())
+                .append("\n\n")
+                .append("Inspector Name: ")
+                .append(inspector.getFirstName())
+                .append(" ")
+                .append(inspector.getLastName())
+                .append("\n")
+                .append("Inspector Email: ")
+                .append(inspector.getEmail())
+                .append("\n")
+                .append("Inspector Phone: ")
+                .append(inspector.getPhone())
+                .append("\n\n")
+                .append("Messag from the inspector: ")
+                .append(message == null ? "N/A" : message)
+                .toString();
+        sendEmail(email, subject, body);
+    }
+
+    private void sendEmail(String email, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject(subject);
+        message.setText(body);
+        emailSender.send(message);
     }
 
     /**

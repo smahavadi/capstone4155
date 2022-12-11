@@ -8,8 +8,12 @@ export function isLoggedIn() {
   return sessionStorage.getItem("user") != null;
 }
 
-export function getLoginData() {
-  return JSON.parse(sessionStorage.getItem("user") || "{}");
+export function getLoginData(): Inspector | null {
+  const j = JSON.parse(sessionStorage.getItem("user") || "{}");
+  if (j) {
+    return new Inspector(j);
+  }
+  return null;
 }
 
 
