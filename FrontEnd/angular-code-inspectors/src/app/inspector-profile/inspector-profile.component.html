@@ -41,7 +41,7 @@
           </div>
         </div>
         <!-- Field to add a message for the applicant receiving an approval or denial -->
-        <div class="row">
+        <div class="row" *ngIf="!selectedApplicationIsApproved">
           <div class="col-md-12">
             <div class="form-group">
               <label for="message">Write a message to the applicant:</label>
@@ -52,8 +52,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="acceptApplication(selectedApplication)">Accept</button>
-        <button type="button" class="btn btn-danger" (click)="rejectApplication(selectedApplication)">Reject</button>
+        <button type="button" class="btn btn-primary" (click)="acceptApplication(selectedApplication)" *ngIf="!selectedApplicationIsApproved">Accept</button>
+        <button type="button" class="btn btn-danger" (click)="rejectApplication(selectedApplication)" *ngIf="!selectedApplicationIsApproved">Reject</button>
       </div>
     </div>
   </div>
@@ -108,8 +108,31 @@
       <div class="card" id="reminders">
         <div class="card-body">
           <h4 class="card-title">Upcoming reminders</h4>
+          <p class="card-text">You have {{ inspector?.reminderApplications()?.length || 0 }} upcoming reminder(s).</p>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let application of inspector?.reminderApplications()">
+              <!--Show a preview with the name of the applicant, the time they requested the inspection, and the type of inspection-->
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Name: {{ application?.name }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p>{{ application?.time | date:'short' }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Type: {{ application?.inspectionType }}</p>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-info" (click)="viewApplication(application, true)">View Details</button>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+
   </div>
 </div>

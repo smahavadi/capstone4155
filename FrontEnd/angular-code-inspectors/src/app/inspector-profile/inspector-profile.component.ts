@@ -13,6 +13,7 @@ export class InspectorProfileComponent implements OnInit {
 
   inspector: Inspector | null = getLoginData();
   selectedApplication: Application | null = null;
+  selectedApplicationIsApproved: boolean = false;
   displayStyle: string = 'none';
 
   constructor(private inspectorService: InspectorService, private router: Router) {
@@ -60,8 +61,9 @@ export class InspectorProfileComponent implements OnInit {
     }
   }
 
-  viewApplication(application: Application | null) {
+  viewApplication(application: Application | null, approved: boolean = false) {
     this.selectedApplication = application;
+    this.selectedApplicationIsApproved = approved;
     this.displayStyle = 'block';
 
   }

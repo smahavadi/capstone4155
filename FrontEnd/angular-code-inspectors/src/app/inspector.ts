@@ -52,6 +52,20 @@ export class Inspector {
     }
     return applications;
   }
+
+  public approvedApplications(): Application[] {
+    const applications = new Array<Application>();
+    for (const slot of this?.slots || []) {
+      if (slot.approvedApplication) {
+        applications.push(slot.approvedApplication);
+      }
+    }
+    return applications;
+  }
+
+  public reminderApplications(): Application[] {
+    return this.approvedApplications().filter(a => new Date(a.time) > new Date());
+  }
 }
 
 export class Slot {
