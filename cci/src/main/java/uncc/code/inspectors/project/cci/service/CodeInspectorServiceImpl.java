@@ -84,6 +84,11 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             }
             inspectors.add(inspector);
         }
+        for (int i = 0;  i < inspectors.size(); i++) {
+            if (inspectors.get(i).getType().equals("Fire")) {
+                inspectors.remove(i);
+            }
+        }
         return withoutPrivateData(inspectors);
     }
 
