@@ -6,12 +6,8 @@ import { Subject } from 'rxjs';
 import {
   startOfDay,
   endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours, startOfHour,
 } from 'date-fns';
 import {
   CalendarEvent,
@@ -49,32 +45,9 @@ export class ScheduleInspectionComponent implements OnInit {
   successMessage: string = '';
 
   actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
   ];
 
-  events: CalendarEvent[] = [
-    // {
-    //   start: addHours(startOfHour(new Date()), 12),
-    //   end: addHours(startOfHour(new Date()), 13),
-    //   title: `${addHours(startOfHour(new Date()), 12).toLocaleString()} - ${addHours(startOfHour(new Date()), 13).toLocaleString()}`,
-    //   color: { ...colors['blue'] },
-    //   actions: this.actions,
-    // },
-  ];
+  events: CalendarEvent[] = [];
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   refresh = new Subject<void>();
@@ -98,6 +71,10 @@ export class ScheduleInspectionComponent implements OnInit {
         this.events = [];
         if (this.inspector?.slots != null) {
           this.inspector.slots.forEach((slot) => {
+            // if the slot has an approved inspection, skip it
+            if (!!slot.approvedApplication) {
+              return;
+            }
             this.events.push({
               start: new Date(slot.startTime),
               end: new Date(slot.endTime),
@@ -202,22 +179,6 @@ export class ScheduleInspectionComponent implements OnInit {
         this.successMessage = 'Your inspection request has been submitted. You will receive an email confirmation once your request has processed by the inspector.'
       }
     });
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors['red'],
-      },
-    ];
   }
 
   eventTimesChanged({

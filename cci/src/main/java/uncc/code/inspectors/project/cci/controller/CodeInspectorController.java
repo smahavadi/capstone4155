@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.ApplicationResponse;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
+import uncc.code.inspectors.project.cci.entity.SlotUpdate;
 import uncc.code.inspectors.project.cci.service.CodeInspectorService;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
@@ -73,6 +74,18 @@ public class CodeInspectorController {
     @PostMapping("/inspector/reject")
     public CodeInspector rejectApplication(@RequestBody ApplicationResponse applicationResponse) {
         return codeInspectorService.rejectApplication(applicationResponse.getInspector(), applicationResponse.getApplication(), applicationResponse.getMessage());
+    }
+
+    // used for adding a slot
+    @PostMapping("/inspector/addslot")
+    public CodeInspector addSlot(@RequestBody SlotUpdate slotUpdate) {
+        return codeInspectorService.addSlot(slotUpdate.getInspector(), slotUpdate.getSlot());
+    }
+
+    // used for removing a slot
+    @PostMapping("/inspector/removeslot")
+    public CodeInspector removeSlot(@RequestBody SlotUpdate slotUpdate) {
+        return codeInspectorService.removeSlot(slotUpdate.getInspector(), slotUpdate.getSlot());
     }
 }
 
