@@ -1,5 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from "@angular/core";
+import {addHours} from "date-fns";
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,35 @@ export class InspectorService {
         inspector: inspector,
         application: application,
         message: message
+      },
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+    );
+  }
+
+  addSlot(inspector: any, start: Date, end: Date) {
+    return this.http.post("http://localhost:8080/cci/inspector/addslot",
+      {
+        inspector: inspector,
+        slot: {
+          startTime: start,
+          endTime: end
+        }
+      },
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})},
+    );
+  }
+
+  removeSlot(inspector: any, start: Date, end: Date | undefined) {
+    if (end == undefined) {
+      end = addHours(start, 1);
+    }
+    return this.http.post("http://localhost:8080/cci/inspector/removeslot",
+      {
+        inspector: inspector,
+        slot: {
+          startTime: start,
+          endTime: end
+        }
       },
       {headers: new HttpHeaders({'Content-Type': 'application/json'})},
     );

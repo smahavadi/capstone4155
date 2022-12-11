@@ -2,6 +2,7 @@ package uncc.code.inspectors.project.cci.service;
 
 import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
+import uncc.code.inspectors.project.cci.entity.Slot;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
 import java.util.*;
@@ -34,4 +35,8 @@ public interface CodeInspectorService {
 
     // reject application
     CodeInspector rejectApplication(CodeInspector inspector, Application application, String message);
+
+    CodeInspector addSlot(CodeInspector inspector, Slot slot);
+
+    CodeInspector removeSlot(CodeInspector inspector, Slot slot);
 }

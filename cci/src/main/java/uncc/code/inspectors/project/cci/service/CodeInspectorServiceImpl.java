@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 import uncc.code.inspectors.project.cci.entity.Application;
 import uncc.code.inspectors.project.cci.entity.CodeInspector;
 import uncc.code.inspectors.project.cci.entity.Pagination;
+import uncc.code.inspectors.project.cci.entity.Slot;
 import uncc.code.inspectors.project.cci.repository.CodeInspectorRepository;
 import uncc.code.inspectors.request.CodeInspectorRequest;
 
@@ -266,7 +267,7 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
 
         // Verify credentials
         if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
         // Find the slot with the given time
@@ -326,19 +327,19 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
     @Override
     public CodeInspector rejectApplication(CodeInspector inspector, Application application, String message) {
         if (inspector == null || application == null) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
 
         // Find the inspector with the given id
         CodeInspector codeInspector = codeInspectorRepository.findById(inspector.getId()).orElse(null);
 
         if (codeInspector == null) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Code inspector not found");
         }
 
         // Verify credentials
         if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
         // Find the slot with the given time
@@ -387,6 +388,85 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             return withoutPrivateData(codeInspector);
         }
         return null;
+    }
+
+    @Override
+    public CodeInspector addSlot(CodeInspector inspector, Slot slot) {
+        if (inspector == null || slot == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
+        }
+
+        if (slot.getEndTime().isBefore(slot.getStartTime())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid slot");
+        }
+
+        // Find the inspector with the given id
+        CodeInspector codeInspector = codeInspectorRepository.findById(inspector.getId()).orElse(null);
+
+        if (codeInspector == null) {
+            return null;
+        }
+
+        // Verify credentials
+        if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        }
+
+        // Find the slot with the given time
+        var slots = codeInspector.getSlots();
+        if (slots == null) {
+            slots = new ArrayList<>();
+        }
+        for (var s : slots) {
+            if (s.getStartTime().equals(slot.getStartTime())) {
+                // If the slot already exists, raise a 409 Conflict
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Slot already exists");
+            }
+        }
+
+        // Add the slot to the list of slots
+        slots.add(slot);
+        codeInspector.setSlots(slots);
+        codeInspectorRepository.save(codeInspector);
+
+        return withoutPrivateData(codeInspector);
+    }
+
+    @Override
+    public CodeInspector removeSlot(CodeInspector inspector, Slot slot) {
+        if (inspector == null || slot == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
+        }
+
+        // Find the inspector with the given id
+        CodeInspector codeInspector = codeInspectorRepository.findById(inspector.getId()).orElse(null);
+
+        if (codeInspector == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Inspector not found");
+        }
+
+        // Verify credentials
+        if (!checkCredentials(codeInspector, inspector.getUsername(), inspector.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        }
+
+        // Find the slot with the given time
+        var slots = codeInspector.getSlots();
+        if (slots == null) {
+            return null;
+        }
+        for (int i = 0; i < slots.size(); i++) {
+            var s = slots.get(i);
+            if (s.getStartTime().equals(slot.getStartTime())) {
+                // Remove the slot from the list of slots
+                slots.remove(i);
+                codeInspector.setSlots(slots);
+                codeInspectorRepository.save(codeInspector);
+                return withoutPrivateData(codeInspector);
+            }
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Slot not found");
     }
 
     private static void setPassword(CodeInspector codeInspector, String password) {

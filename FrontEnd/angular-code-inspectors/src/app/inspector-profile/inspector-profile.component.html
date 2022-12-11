@@ -1,6 +1,13 @@
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="successMessage">
+  {{successMessage}}
+</div>
+
 <!-- View application modal -->
 <div class="modal" id="viewApplicationModal" tabindex="-1"
-     role="dialog" aria-labelledby="viewApplicationModalLabel" [ngStyle]="{'display':displayStyle}">
+     role="dialog" aria-labelledby="viewApplicationModalLabel" [ngStyle]="{'display':applicationModalDisplayStyle}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,13 +66,161 @@
   </div>
 </div>
 
+<!-- Add event modal -->
+<div class="modal" id="addEventModal" tabindex="-1"
+     role="dialog" aria-labelledby="addEventModalLabel" [ngStyle]="{'display':addEventModalDisplayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEventModalLabel">Add Availability</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="closeAddEventModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="startTime">Start:</label>
+              <input type="datetime-local" class="form-control" id="startTime" [value]="toDateString(addEventModalStartTime)" (change)="updateAddEventModalStartTime($event)">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="endTime">End:</label>
+              <input type="datetime-local" class="form-control" id="endTime" [value]="toDateString(addEventModalEndTime)" (change)="updateAddEventModalEndTime($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeAddEventModal()">Close</button>
+        <button type="button" class="btn btn-success" (click)="addEvent()"
+          [disabled]="!addEventModalStartTime || !addEventModalEndTime || addEventModalStartTime >= addEventModalEndTime">Add Availability</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <h3>Welcome to the Code Inspector Portal, {{ inspector?.firstName }} {{inspector?.lastName}}</h3>
 
+  <div class="row mb-4">
+    <!--Calender-->
+    <div class="col-md-12">
+      <div class="card" id="calender">
+        <div class="card-body">
+          <h4 class="card-title">Calender</h4>
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-md-4">
+                  <div class="btn-group">
+                    <div
+                      class="btn btn-primary"
+                      mwlCalendarPreviousView
+                      [view]="view"
+                      [(viewDate)]="viewDate"
+                      (viewDateChange)="closeOpenMonthViewDay()"
+                    >
+                      Previous
+                    </div>
+                    <div
+                      class="btn btn-outline-secondary"
+                      mwlCalendarToday
+                      [(viewDate)]="viewDate"
+                    >
+                      Today
+                    </div>
+                    <div
+                      class="btn btn-primary"
+                      mwlCalendarNextView
+                      [view]="view"
+                      [(viewDate)]="viewDate"
+                      (viewDateChange)="closeOpenMonthViewDay()"
+                    >
+                      Next
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                </div>
+                <div class="col-md-4">
+                  <div class="btn-group">
+                    <div
+                      class="btn btn-primary"
+                      (click)="setView(CalendarView.Month)"
+                      [class.active]="view === CalendarView.Month"
+                    >
+                      Month
+                    </div>
+                    <div
+                      class="btn btn-primary"
+                      (click)="setView(CalendarView.Week)"
+                      [class.active]="view === CalendarView.Week"
+                    >
+                      Week
+                    </div>
+                    <div
+                      class="btn btn-primary"
+                      (click)="setView(CalendarView.Day)"
+                      [class.active]="view === CalendarView.Day"
+                    >
+                      Day
+                    </div>
+                    <div class="btn btn-success" (click)="openAddEventModal()">Add Availability</div>
+                  </div>
+                </div>
+              </div>
+              <div [ngSwitch]="view">
+                <mwl-calendar-month-view
+                  *ngSwitchCase="CalendarView.Month"
+                  [viewDate]="viewDate"
+                  [events]="events"
+                  [refresh]="refresh"
+                  [activeDayIsOpen]="activeDayIsOpen"
+                  (dayClicked)="dayClicked($event.day)"
+                  (eventClicked)="handleEvent('Clicked', $event.event)"
+                  (eventTimesChanged)="eventTimesChanged($event)"
+                >
+                </mwl-calendar-month-view>
+                <mwl-calendar-week-view
+                  *ngSwitchCase="CalendarView.Week"
+                  [viewDate]="viewDate"
+                  [events]="events"
+                  [refresh]="refresh"
+                  (hourSegmentClicked)="hourSegmentClicked($event)"
+                  (eventClicked)="handleEvent('Clicked', $event.event)"
+                  (eventTimesChanged)="eventTimesChanged($event)"
+                >
+                </mwl-calendar-week-view>
+                <mwl-calendar-day-view
+                  *ngSwitchCase="CalendarView.Day"
+                  [viewDate]="viewDate"
+                  [events]="events"
+                  [refresh]="refresh"
+                  (hourSegmentClicked)="hourSegmentClicked($event)"
+                  (eventClicked)="handleEvent('Clicked', $event.event)"
+                  (eventTimesChanged)="eventTimesChanged($event)"
+                >
+                </mwl-calendar-day-view>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <!--Pending requests-->
-    <div class="col-md-4">
-      <div class="card" id="requests">
+    <div class="col-md-6">
+      <div class="card h-100" id="requests">
         <div class="card-body">
           <h4 class="card-title">Pending requests</h4>
           <p class="card-text">You have {{ inspector?.pendingApplications()?.length || 0 }} pending request(s).</p>
@@ -94,18 +249,9 @@
       </div>
     </div>
 
-    <!--Calender-->
-    <div class="col-md-4">
-      <div class="card" id="calender">
-        <div class="card-body">
-          <h4 class="card-title">Calender</h4>
-        </div>
-      </div>
-    </div>
-
     <!--Upcoming reminders-->
-    <div class="col-md-4">
-      <div class="card" id="reminders">
+    <div class="col-md-6">
+      <div class="card h-100" id="reminders">
         <div class="card-body">
           <h4 class="card-title">Upcoming reminders</h4>
           <p class="card-text">You have {{ inspector?.reminderApplications()?.length || 0 }} upcoming reminder(s).</p>
@@ -133,6 +279,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
