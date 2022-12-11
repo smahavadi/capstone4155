@@ -577,7 +577,15 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             if (slots != null) {
                 slots.forEach(slot -> {
                     slot.setPendingApplications(null);
-                    slot.setApprovedApplication(null);
+                    // if there's an approved application, set all sensitive data to null
+                    if (slot.getApprovedApplication() != null) {
+                        slot.getApprovedApplication().setEmail(null);
+                        slot.getApprovedApplication().setName(null);
+                        slot.getApprovedApplication().setNotes(null);
+                        slot.getApprovedApplication().setPhone(null);
+                        slot.getApprovedApplication().setAddress(null);
+                        slot.getApprovedApplication().setInspectionType(null);
+                    }
                 });
             }
         }

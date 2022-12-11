@@ -71,6 +71,10 @@ export class ScheduleInspectionComponent implements OnInit {
         this.events = [];
         if (this.inspector?.slots != null) {
           this.inspector.slots.forEach((slot) => {
+            // if the slot has an approved inspection, skip it
+            if (!!slot.approvedApplication) {
+              return;
+            }
             this.events.push({
               start: new Date(slot.startTime),
               end: new Date(slot.endTime),
