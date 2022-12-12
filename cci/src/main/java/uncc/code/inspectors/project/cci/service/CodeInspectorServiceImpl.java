@@ -84,8 +84,8 @@ public class CodeInspectorServiceImpl implements CodeInspectorService {
             }
             inspectors.add(inspector);
         }
-        for (int i = 0;  i < inspectors.size(); i++) {
-            if (inspectors.get(i).getType().equals("Fire")) {
+        for (int i = inspectors.size() - 1; i >= 0; i--) {
+            if (inspectors.get(i).getTrade().equals("Fire")) {
                 inspectors.remove(i);
             }
         }
